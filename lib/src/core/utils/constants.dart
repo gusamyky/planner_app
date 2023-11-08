@@ -15,14 +15,14 @@ class Constants {
   static const double space8 = 8;
   static const double space11 = 11;
   static const double space17 = 17;
-  static const double space23 = 23;
+  static const double space20 = 20;
   static const double space27 = 27;
   static const double space31 = 31;
   static const double space35 = 35;
   static const double space43 = 43;
   static const double space75 = 75;
 
-  static const double appPadding = 20;
+  static const double appPadding = 30;
   static const double appContainerPadding = 35;
   static const double textFieldPadding = 10;
   static const double toggleButtonsPadding = 25;
