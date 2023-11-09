@@ -35,21 +35,24 @@ class AppTheme {
         fontSize: 20,
         fontFamily: 'Montserrat',
         fontWeight: FontWeight.w600,
-        // color: AppColors.white,
+        color: AppColors.white,
       ),
       titleLarge: TextStyle(
         fontSize: 16,
         fontFamily: 'Montserrat',
+        color: AppColors.white,
         fontWeight: FontWeight.w400,
       ),
-      titleMedium: TextStyle(
+      bodyMedium: TextStyle(
         fontSize: 12,
         fontFamily: 'Montserrat',
+        color: AppColors.white,
         fontWeight: FontWeight.w400,
       ),
-      titleSmall: TextStyle(
+      bodySmall: TextStyle(
         fontSize: 10,
         fontFamily: 'Montserrat',
+        color: AppColors.white,
         fontWeight: FontWeight.w400,
       ),
 
@@ -84,7 +87,7 @@ class _DarkTheme {
   //       textStyle: const TextStyle(
   //         fontSize: 12,
   //         fontWeight: FontWeight.w400,
-  //         fontFamily: 'Poppins',
+  //         fontFamily: 'Montserrat',
   //       ),
   //     ),
   //   );
