@@ -27,6 +27,7 @@ class Constants {
   static const double textFieldPadding = 10;
   static const double toggleButtonsPadding = 25;
 
+  static const double tileRadius = 6;
   static const double textFieldRadius = 8;
   static const double toggleButtonsRadius = 100;
   static const double iconBackgroundRadius = 34;

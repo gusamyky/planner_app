@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 
 class AppTheme {
   static ThemeData get dark {
@@ -11,12 +12,12 @@ class AppTheme {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       colorScheme: _DarkTheme.colorScheme,
-      //elevatedButtonTheme: _DarkTheme.elevatedButtonTheme,
+      elevatedButtonTheme: _DarkTheme.elevatedButtonTheme,
       outlinedButtonTheme: _DarkTheme.outlinedButtonThemeData,
       textButtonTheme: _DarkTheme.textButtonThemeData,
       appBarTheme: _DarkTheme.appBarTheme,
-      //inputDecorationTheme: _DarkTheme.inputDecorationTheme,
-      //toggleButtonsTheme: _DarkTheme.toggleButtonsThemeData,
+      inputDecorationTheme: _DarkTheme.inputDecorationTheme,
+      toggleButtonsTheme: _DarkTheme.toggleButtonsThemeData,
       bottomNavigationBarTheme: _DarkTheme.bottomNavigationBarThemeData,
       switchTheme: _DarkTheme.switchThemeData,
       floatingActionButtonTheme: _DarkTheme.floatingActionButtonThemeData,
@@ -24,8 +25,8 @@ class AppTheme {
       timePickerTheme: _DarkTheme.timePickerThemeData,
       tabBarTheme: _DarkTheme.tabBarTheme,
       listTileTheme: _DarkTheme.listTileThemeData,
-      //drawerTheme: _DarkTheme.drawerThemeData,
-      //checkboxTheme: _DarkTheme.checkboxThemeData,
+      drawerTheme: _DarkTheme.drawerThemeData,
+      checkboxTheme: _DarkTheme.checkboxThemeData,
     );
   }
 
@@ -79,19 +80,19 @@ class _DarkTheme {
     );
   }
 
-  // static ElevatedButtonThemeData get elevatedButtonTheme {
-  //   return ElevatedButtonThemeData(
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: AppColors.primary,
-  //       foregroundColor: AppColors.tertiary,
-  //       textStyle: const TextStyle(
-  //         fontSize: 12,
-  //         fontWeight: FontWeight.w400,
-  //         fontFamily: 'Montserrat',
-  //       ),
-  //     ),
-  //   );
-  // }
+  static ElevatedButtonThemeData get elevatedButtonTheme {
+    return ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.olive,
+        foregroundColor: AppColors.white,
+        textStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'Montserrat',
+        ),
+      ),
+    );
+  }
 
   static OutlinedButtonThemeData get outlinedButtonThemeData {
     return OutlinedButtonThemeData(
@@ -124,42 +125,42 @@ class _DarkTheme {
     );
   }
 
-  // static InputDecorationTheme get inputDecorationTheme {
-  //   return const InputDecorationTheme(
-  //     filled: true,
-  //     fillColor: AppColors.inputFieldBackground,
-  //     contentPadding: EdgeInsets.all(Constants.textFieldPadding),
-  //     border: OutlineInputBorder(
-  //       borderSide: BorderSide.none,
-  //       borderRadius:
-  //           BorderRadius.all(Radius.circular(Constants.textFieldRadius)),
-  //     ),
-  //     hintStyle: TextStyle(
-  //       fontSize: 12,
-  //       fontWeight: FontWeight.w400,
-  //       fontFamily: 'Poppins',
-  //       color: AppColors.inputFieldHint,
-  //     ),
-  //     suffixIconColor: AppColors.inputFieldHint,
-  //     prefixIconColor: AppColors.black,
-  //   );
-  // }
+  static InputDecorationTheme get inputDecorationTheme {
+    return const InputDecorationTheme(
+      filled: true,
+      fillColor: Palette.unselected,
+      contentPadding: EdgeInsets.all(Constants.textFieldPadding),
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius:
+            BorderRadius.all(Radius.circular(Constants.textFieldRadius)),
+      ),
+      hintStyle: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Poppins',
+        color: AppColors.lightgray,
+      ),
+      suffixIconColor: AppColors.lightgray,
+      prefixIconColor: AppColors.black,
+    );
+  }
 
-  // static ToggleButtonsThemeData get toggleButtonsThemeData {
-  //   return ToggleButtonsThemeData(
-  //     selectedBorderColor: AppColors.primary,
-  //     borderColor: AppColors.primary,
-  //     selectedColor: AppColors.black,
-  //     color: AppColors.black,
-  //     fillColor: AppColors.primary,
-  //     borderRadius: BorderRadius.circular(Constants.toggleButtonsRadius),
-  //     textStyle: const TextStyle(
-  //       fontSize: 12,
-  //       fontFamily: 'Poppins',
-  //       fontWeight: FontWeight.w400,
-  //     ),
-  //   );
-  // }
+  static ToggleButtonsThemeData get toggleButtonsThemeData {
+    return ToggleButtonsThemeData(
+      selectedBorderColor: Palette.selected,
+      borderColor: Palette.selected,
+      selectedColor: AppColors.black,
+      color: AppColors.black,
+      fillColor: AppColors.olive,
+      borderRadius: BorderRadius.circular(Constants.toggleButtonsRadius),
+      textStyle: const TextStyle(
+        fontSize: 12,
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
 
   static BottomNavigationBarThemeData get bottomNavigationBarThemeData {
     return const BottomNavigationBarThemeData(
@@ -225,14 +226,14 @@ class _DarkTheme {
     );
   }
 
-  // static DrawerThemeData get drawerThemeData {
-  //   return const DrawerThemeData(backgroundColor: AppColors.blueGray900);
-  // }
+  static DrawerThemeData get drawerThemeData {
+    return const DrawerThemeData(backgroundColor: Palette.navBarColor);
+  }
 
-  // static CheckboxThemeData get checkboxThemeData {
-  //   return const CheckboxThemeData(
-  //     checkColor: MaterialStatePropertyAll(Colors.white),
-  //     fillColor: MaterialStatePropertyAll(AppColors.primary),
-  //   );
-  // }
+  static CheckboxThemeData get checkboxThemeData {
+    return const CheckboxThemeData(
+      checkColor: MaterialStatePropertyAll(Colors.white),
+      fillColor: MaterialStatePropertyAll(Palette.navBarColor),
+    );
+  }
 }
