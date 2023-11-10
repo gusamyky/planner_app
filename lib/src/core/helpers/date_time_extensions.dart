@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 extension DateTimeExtension on DateTime {
   String get hm => DateFormat.Hm(Platform.localeName).format(this);
 
+  String get dhm => DateFormat.Md(Platform.localeName).add_Hm().format(this);
+
   String get yMd => DateFormat.yMd(Platform.localeName).format(this);
 
   String get dM => DateFormat.Md(Platform.localeName).format(this);
