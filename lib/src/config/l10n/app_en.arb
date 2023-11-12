@@ -1,6 +1,10 @@
 {
   "all_events": "All events",
+  "done": "Done",
   "home": "Home",
+  "in_progress": "In progress",
   "month": "Month",
+  "story": "Story",
+  "to_do": "To do",
   "today": "Today"
 }

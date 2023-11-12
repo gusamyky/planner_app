@@ -27,6 +27,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const DayPage(),
       );
     },
+    EventRoute.name: (routeData) {
+      final args = routeData.argsAs<EventRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EventPage(
+          event: args.event,
+          key: args.key,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -68,6 +78,43 @@ class DayRoute extends PageRouteInfo<void> {
   static const String name = 'DayRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EventPage]
+class EventRoute extends PageRouteInfo<EventRouteArgs> {
+  EventRoute({
+    required Event event,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          EventRoute.name,
+          args: EventRouteArgs(
+            event: event,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'EventRoute';
+
+  static const PageInfo<EventRouteArgs> page = PageInfo<EventRouteArgs>(name);
+}
+
+class EventRouteArgs {
+  const EventRouteArgs({
+    required this.event,
+    this.key,
+  });
+
+  final Event event;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'EventRouteArgs{event: $event, key: $key}';
+  }
 }
 
 /// generated route for

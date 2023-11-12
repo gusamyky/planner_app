@@ -22,6 +22,10 @@ class Constants {
   static const double space43 = 43;
   static const double space75 = 75;
 
+  static const double padding7 = 7;
+  static const double padding10 = 10;
+  static const double padding15 = 15;
+
   static const double appPadding = 30;
   static const double appContainerPadding = 35;
   static const double textFieldPadding = 10;
@@ -31,6 +35,7 @@ class Constants {
   static const double textFieldRadius = 8;
   static const double toggleButtonsRadius = 100;
   static const double iconBackgroundRadius = 34;
-  static const double radius17 = 17;
+  static const double radius12 = 12;
+  static const double radius15 = 15;
   static const double appContainerRadius = 35;
 }
