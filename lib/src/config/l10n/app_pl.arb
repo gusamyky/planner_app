@@ -1,6 +1,10 @@
 {
   "all_events": "Wszystkie eventy",
+  "done": "Zrobione",
   "home": "Główna",
+  "in_progress": "Procesowane",
   "month": "Miesiąc",
+  "story": "Archiwowane",
+  "to_do": "Do zrobienia",
   "today": "Dzisiaj"
 }

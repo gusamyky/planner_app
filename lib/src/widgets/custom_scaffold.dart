@@ -24,21 +24,24 @@ class CustomScaffold extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Palette.navBarColor,
-        actions: [
-          InkWell(
-              onTap: () {},
-              child: const CircleAvatar(
-                  backgroundColor: AppColors.gray,
-                  child: AppIcon(icon: AppIcons.search))),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Constants.space11),
-            child: InkWell(
-                onTap: () {},
-                child: const CircleAvatar(
-                    backgroundColor: AppColors.gray,
-                    child: AppIcon(icon: AppIcons.plus))),
-          ),
-        ],
+        actions: context.router.canPop()
+            ? null
+            : [
+                InkWell(
+                    onTap: () {},
+                    child: const CircleAvatar(
+                        backgroundColor: AppColors.gray,
+                        child: AppIcon(icon: AppIcons.search))),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: Constants.space11),
+                  child: InkWell(
+                      onTap: () {},
+                      child: const CircleAvatar(
+                          backgroundColor: AppColors.gray,
+                          child: AppIcon(icon: AppIcons.plus))),
+                ),
+              ],
         title: appBarTitle != null
             ? Text(
                 appBarTitle!,

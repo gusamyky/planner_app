@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:planner_app/src/config/routes/app_routes.dart';
+import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:planner_app/src/modules/pages/all_events/all_events_page.dart';
 import 'package:planner_app/src/modules/pages/day/day_page.dart';
+import 'package:planner_app/src/modules/pages/event/event_details_page.dart';
 import 'package:planner_app/src/modules/pages/home/home_page.dart';
 import 'package:planner_app/src/modules/pages/month/month_page.dart';
 part 'app_router.gr.dart';
@@ -21,20 +23,22 @@ class AppRouter extends _$AppRouter {
           page: DayRoute.page,
           transitionsBuilder: slideFromTopTransition,
           path: AppRoutes.dayView,
-          initial: false,
         ),
         CustomRoute(
           page: MonthRoute.page,
           transitionsBuilder: slideFromTopTransition,
           path: AppRoutes.month,
-          initial: false,
         ),
         CustomRoute(
           page: AllEventsRoute.page,
           transitionsBuilder: slideFromTopTransition,
           path: AppRoutes.allEvents,
-          initial: false,
         ),
+        CustomRoute(
+          page: EventRoute.page,
+          transitionsBuilder: slideFromTopTransition,
+          path: AppRoutes.eventDetails,
+        )
       ];
 }
 
