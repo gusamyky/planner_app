@@ -8,31 +8,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
 
 @RoutePage()
-class EventPage extends StatelessWidget {
-  const EventPage({required this.event, super.key});
-  final Event event;
+class CreateEditEventPage extends StatelessWidget {
+  const CreateEditEventPage({this.event, super.key});
+  final Event? event;
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-        appBarTitle: 'Title',
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _DescriptionWidget(
-                description: event.description,
-              ),
-              const SizedBox(height: Constants.appPadding),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _StatusIndicator(status: event.status),
-                  _DateIndicator(eventTime: event.time),
-                ],
-              )
-            ],
-          ),
-        ));
+    return const CustomScaffold(
+      appBarTitle: 'Createeeee',
+      body: Center(
+        child: Text('create edit event page'),
+      ),
+    );
   }
 }
 
