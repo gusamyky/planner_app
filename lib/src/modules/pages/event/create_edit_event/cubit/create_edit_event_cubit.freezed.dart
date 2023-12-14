@@ -18,26 +18,43 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateEditEventState {
   String get eventTitle => throw _privateConstructorUsedError;
   String get eventDescription => throw _privateConstructorUsedError;
-  DateTime get eventTime => throw _privateConstructorUsedError;
+  DateTime get eventDate => throw _privateConstructorUsedError;
+  DateTime get timeFrom => throw _privateConstructorUsedError;
+  DateTime get timeTo => throw _privateConstructorUsedError;
   EventStatus get eventStatus => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String eventTitle, String eventDescription,
-            DateTime eventTime, EventStatus eventStatus)
+    required TResult Function(
+            String eventTitle,
+            String eventDescription,
+            DateTime eventDate,
+            DateTime timeFrom,
+            DateTime timeTo,
+            EventStatus eventStatus)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String eventTitle, String eventDescription,
-            DateTime eventTime, EventStatus eventStatus)?
+    TResult? Function(
+            String eventTitle,
+            String eventDescription,
+            DateTime eventDate,
+            DateTime timeFrom,
+            DateTime timeTo,
+            EventStatus eventStatus)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String eventTitle, String eventDescription,
-            DateTime eventTime, EventStatus eventStatus)?
+    TResult Function(
+            String eventTitle,
+            String eventDescription,
+            DateTime eventDate,
+            DateTime timeFrom,
+            DateTime timeTo,
+            EventStatus eventStatus)?
         initial,
     required TResult orElse(),
   }) =>
@@ -73,7 +90,9 @@ abstract class $CreateEditEventStateCopyWith<$Res> {
   $Res call(
       {String eventTitle,
       String eventDescription,
-      DateTime eventTime,
+      DateTime eventDate,
+      DateTime timeFrom,
+      DateTime timeTo,
       EventStatus eventStatus});
 }
 
@@ -93,7 +112,9 @@ class _$CreateEditEventStateCopyWithImpl<$Res,
   $Res call({
     Object? eventTitle = null,
     Object? eventDescription = null,
-    Object? eventTime = null,
+    Object? eventDate = null,
+    Object? timeFrom = null,
+    Object? timeTo = null,
     Object? eventStatus = null,
   }) {
     return _then(_value.copyWith(
@@ -105,9 +126,17 @@ class _$CreateEditEventStateCopyWithImpl<$Res,
           ? _value.eventDescription
           : eventDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      eventTime: null == eventTime
-          ? _value.eventTime
-          : eventTime // ignore: cast_nullable_to_non_nullable
+      eventDate: null == eventDate
+          ? _value.eventDate
+          : eventDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      timeFrom: null == timeFrom
+          ? _value.timeFrom
+          : timeFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      timeTo: null == timeTo
+          ? _value.timeTo
+          : timeTo // ignore: cast_nullable_to_non_nullable
               as DateTime,
       eventStatus: null == eventStatus
           ? _value.eventStatus
@@ -128,7 +157,9 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {String eventTitle,
       String eventDescription,
-      DateTime eventTime,
+      DateTime eventDate,
+      DateTime timeFrom,
+      DateTime timeTo,
       EventStatus eventStatus});
 }
 
@@ -145,7 +176,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? eventTitle = null,
     Object? eventDescription = null,
-    Object? eventTime = null,
+    Object? eventDate = null,
+    Object? timeFrom = null,
+    Object? timeTo = null,
     Object? eventStatus = null,
   }) {
     return _then(_$InitialImpl(
@@ -157,9 +190,17 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.eventDescription
           : eventDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      eventTime: null == eventTime
-          ? _value.eventTime
-          : eventTime // ignore: cast_nullable_to_non_nullable
+      eventDate: null == eventDate
+          ? _value.eventDate
+          : eventDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      timeFrom: null == timeFrom
+          ? _value.timeFrom
+          : timeFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      timeTo: null == timeTo
+          ? _value.timeTo
+          : timeTo // ignore: cast_nullable_to_non_nullable
               as DateTime,
       eventStatus: null == eventStatus
           ? _value.eventStatus
@@ -175,7 +216,9 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {this.eventTitle = '',
       this.eventDescription = '',
-      required this.eventTime,
+      required this.eventDate,
+      required this.timeFrom,
+      required this.timeTo,
       this.eventStatus = EventStatus.todo});
 
   @override
@@ -185,14 +228,18 @@ class _$InitialImpl implements _Initial {
   @JsonKey()
   final String eventDescription;
   @override
-  final DateTime eventTime;
+  final DateTime eventDate;
+  @override
+  final DateTime timeFrom;
+  @override
+  final DateTime timeTo;
   @override
   @JsonKey()
   final EventStatus eventStatus;
 
   @override
   String toString() {
-    return 'CreateEditEventState.initial(eventTitle: $eventTitle, eventDescription: $eventDescription, eventTime: $eventTime, eventStatus: $eventStatus)';
+    return 'CreateEditEventState.initial(eventTitle: $eventTitle, eventDescription: $eventDescription, eventDate: $eventDate, timeFrom: $timeFrom, timeTo: $timeTo, eventStatus: $eventStatus)';
   }
 
   @override
@@ -204,15 +251,18 @@ class _$InitialImpl implements _Initial {
                 other.eventTitle == eventTitle) &&
             (identical(other.eventDescription, eventDescription) ||
                 other.eventDescription == eventDescription) &&
-            (identical(other.eventTime, eventTime) ||
-                other.eventTime == eventTime) &&
+            (identical(other.eventDate, eventDate) ||
+                other.eventDate == eventDate) &&
+            (identical(other.timeFrom, timeFrom) ||
+                other.timeFrom == timeFrom) &&
+            (identical(other.timeTo, timeTo) || other.timeTo == timeTo) &&
             (identical(other.eventStatus, eventStatus) ||
                 other.eventStatus == eventStatus));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, eventTitle, eventDescription, eventTime, eventStatus);
+  int get hashCode => Object.hash(runtimeType, eventTitle, eventDescription,
+      eventDate, timeFrom, timeTo, eventStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -223,33 +273,51 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String eventTitle, String eventDescription,
-            DateTime eventTime, EventStatus eventStatus)
+    required TResult Function(
+            String eventTitle,
+            String eventDescription,
+            DateTime eventDate,
+            DateTime timeFrom,
+            DateTime timeTo,
+            EventStatus eventStatus)
         initial,
   }) {
-    return initial(eventTitle, eventDescription, eventTime, eventStatus);
+    return initial(
+        eventTitle, eventDescription, eventDate, timeFrom, timeTo, eventStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String eventTitle, String eventDescription,
-            DateTime eventTime, EventStatus eventStatus)?
+    TResult? Function(
+            String eventTitle,
+            String eventDescription,
+            DateTime eventDate,
+            DateTime timeFrom,
+            DateTime timeTo,
+            EventStatus eventStatus)?
         initial,
   }) {
-    return initial?.call(eventTitle, eventDescription, eventTime, eventStatus);
+    return initial?.call(
+        eventTitle, eventDescription, eventDate, timeFrom, timeTo, eventStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String eventTitle, String eventDescription,
-            DateTime eventTime, EventStatus eventStatus)?
+    TResult Function(
+            String eventTitle,
+            String eventDescription,
+            DateTime eventDate,
+            DateTime timeFrom,
+            DateTime timeTo,
+            EventStatus eventStatus)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(eventTitle, eventDescription, eventTime, eventStatus);
+      return initial(eventTitle, eventDescription, eventDate, timeFrom, timeTo,
+          eventStatus);
     }
     return orElse();
   }
@@ -287,7 +355,9 @@ abstract class _Initial implements CreateEditEventState {
   const factory _Initial(
       {final String eventTitle,
       final String eventDescription,
-      required final DateTime eventTime,
+      required final DateTime eventDate,
+      required final DateTime timeFrom,
+      required final DateTime timeTo,
       final EventStatus eventStatus}) = _$InitialImpl;
 
   @override
@@ -295,7 +365,11 @@ abstract class _Initial implements CreateEditEventState {
   @override
   String get eventDescription;
   @override
-  DateTime get eventTime;
+  DateTime get eventDate;
+  @override
+  DateTime get timeFrom;
+  @override
+  DateTime get timeTo;
   @override
   EventStatus get eventStatus;
   @override

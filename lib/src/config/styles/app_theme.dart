@@ -44,6 +44,12 @@ class AppTheme {
         color: AppColors.white,
         fontWeight: FontWeight.w400,
       ),
+      bodyLarge: TextStyle(
+        fontSize: 14,
+        fontFamily: 'Montserrat',
+        color: AppColors.white,
+        fontWeight: FontWeight.w400,
+      ),
       bodyMedium: TextStyle(
         fontSize: 12,
         fontFamily: 'Montserrat',
@@ -58,7 +64,7 @@ class AppTheme {
       ),
 
       /// TextField style
-      bodyLarge: TextStyle(
+      titleSmall: TextStyle(
         fontSize: 12,
         fontFamily: 'Montserrat',
         fontWeight: FontWeight.w400,
@@ -71,10 +77,9 @@ class AppTheme {
 class _DarkTheme {
   static ColorScheme get colorScheme {
     return const ColorScheme.dark(
-      primary: AppColors.black,
+      primary: Palette.selected,
       outline: Palette.selected,
       background: Palette.backgroundColor,
-      surface: Colors.black,
       primaryContainer: Palette.tileColor,
       onPrimaryContainer: Colors.black,
     );
@@ -128,12 +133,11 @@ class _DarkTheme {
   static InputDecorationTheme get inputDecorationTheme {
     return const InputDecorationTheme(
       filled: true,
-      fillColor: Palette.unselected,
+      fillColor: Palette.navBarColor,
       contentPadding: EdgeInsets.all(Constants.textFieldPadding),
       border: OutlineInputBorder(
         borderSide: BorderSide.none,
-        borderRadius:
-            BorderRadius.all(Radius.circular(Constants.textFieldRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(Constants.radius15)),
       ),
       hintStyle: TextStyle(
         fontSize: 12,

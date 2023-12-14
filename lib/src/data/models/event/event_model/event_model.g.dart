@@ -10,7 +10,9 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       title: json['title'] as String,
       description: json['description'] as String,
       status: $enumDecode(_$EventStatusEnumMap, json['status']),
-      time: DateTime.parse(json['time'] as String),
+      date: DateTime.parse(json['date'] as String),
+      timeFrom: DateTime.parse(json['timeFrom'] as String),
+      timeTo: DateTime.parse(json['timeTo'] as String),
     );
 
 Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
@@ -18,7 +20,9 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'status': _$EventStatusEnumMap[instance.status]!,
-      'time': instance.time.toIso8601String(),
+      'date': instance.date.toIso8601String(),
+      'timeFrom': instance.timeFrom.toIso8601String(),
+      'timeTo': instance.timeTo.toIso8601String(),
     };
 
 const _$EventStatusEnumMap = {

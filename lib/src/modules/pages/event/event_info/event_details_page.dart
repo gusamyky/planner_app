@@ -27,7 +27,7 @@ class EventPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _StatusIndicator(status: event.status),
-                  _DateIndicator(eventTime: event.time),
+                  _DateIndicator(eventTime: event.date),
                 ],
               )
             ],

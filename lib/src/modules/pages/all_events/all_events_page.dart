@@ -5,27 +5,38 @@ import 'package:planner_app/src/modules/widgets/event_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
 
+final now = DateTime.now();
+
 final eventList = <Event>[
   Event(
-      title: 'Title first',
-      description: 'Description first',
-      status: EventStatus.todo,
-      time: DateTime.now()),
+    title: 'Title first',
+    description: 'Description first',
+    status: EventStatus.todo,
+    date: now,
+    timeFrom: now,
+    timeTo: now,
+  ),
   Event(
       title: 'Title second',
       description: 'Description second',
       status: EventStatus.inProgress,
-      time: DateTime.now()),
+      date: now,
+      timeFrom: now,
+      timeTo: now),
   Event(
       title: 'Title third',
       description: 'Description third',
       status: EventStatus.done,
-      time: DateTime.now()),
+      date: now,
+      timeFrom: now,
+      timeTo: now),
   Event(
       title: 'Title fourth',
       description: 'Description fourth',
       status: EventStatus.story,
-      time: DateTime.now()),
+      date: now,
+      timeFrom: now,
+      timeTo: now),
 ];
 
 @RoutePage()

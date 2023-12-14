@@ -5,7 +5,9 @@ class CreateEditEventState with _$CreateEditEventState {
   const factory CreateEditEventState.initial({
     @Default('') String eventTitle,
     @Default('') String eventDescription,
-    required DateTime eventTime,
+    required DateTime eventDate,
+    required DateTime timeFrom,
+    required DateTime timeTo,
     @Default(EventStatus.todo) EventStatus eventStatus,
   }) = _Initial;
 }

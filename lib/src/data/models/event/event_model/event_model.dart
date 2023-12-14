@@ -9,7 +9,9 @@ class EventModel extends Event {
       {required super.title,
       required super.description,
       required super.status,
-      required super.time});
+      required super.date,
+      required super.timeFrom,
+      required super.timeTo});
 
   factory EventModel.fromJson(Map<String, dynamic> jsonMap) =>
       _$EventModelFromJson(jsonMap);
