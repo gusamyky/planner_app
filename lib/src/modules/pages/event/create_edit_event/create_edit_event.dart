@@ -1,13 +1,14 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planner_app/injector.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/helpers/date_time_extensions.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:planner_app/src/modules/pages/event/create_edit_event/cubit/create_edit_event_cubit.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
 import 'package:planner_app/src/widgets/custom_text_field.dart';
 import 'package:planner_app/src/widgets/time_range_picker.dart';
@@ -19,51 +20,68 @@ class CreateEditEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      appBarTitle: event == null
-          ? AppLocalizations.of(context)!.create_event
-          : AppLocalizations.of(context)!.edit_event,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppLocalizations.of(context)!.title,
-                style: Theme.of(context).textTheme.bodyLarge,
+    return BlocProvider<CreateEditEventCubit>(
+      create: (context) => sl<CreateEditEventCubit>(),
+      child: BlocBuilder<CreateEditEventCubit, CreateEditEventState>(
+        builder: (context, state) {
+          return CustomScaffold(
+            appBarTitle: event == null
+                ? AppLocalizations.of(context)!.create_event
+                : AppLocalizations.of(context)!.edit_event,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      AppLocalizations.of(context)!.title,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                  const SizedBox(height: Constants.padding15),
+                  CustomTextField(
+                    maxLines: 1,
+                    text: event?.title,
+                    isTitle: true,
+                    onChanged: (title) => context
+                        .read<CreateEditEventCubit>()
+                        .onTitleChanged(title),
+                  ),
+                  const SizedBox(height: Constants.space20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      AppLocalizations.of(context)!.description,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                  const SizedBox(height: Constants.padding15),
+                  CustomTextField(
+                    maxLines: 8,
+                    text: event?.description,
+                    onChanged: (description) => context
+                        .read<CreateEditEventCubit>()
+                        .onDescriptionChanged(description),
+                  ),
+                  const SizedBox(height: Constants.padding20),
+                  _DateIndicator(event: event),
+                  const SizedBox(height: Constants.padding20),
+                  _TimeRangePicker(
+                    timeFrom: state.timeFrom,
+                    timeTo: state.timeTo,
+                  ),
+                  //const _TimeIndicator(),
+                  const SizedBox(height: Constants.padding20),
+                  _StatusPicker(
+                    currentStatus: event?.status ?? EventStatus.todo,
+                  ),
+                  const SizedBox(height: Constants.padding20),
+                  _SaveEditButton(),
+                ],
               ),
             ),
-            const SizedBox(height: Constants.padding15),
-            const CustomTextField(
-              maxLines: 1,
-              text: 'Title',
-              isTitle: true,
-            ),
-            const SizedBox(height: Constants.space20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppLocalizations.of(context)!.description,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ),
-            const SizedBox(height: Constants.padding15),
-            const CustomTextField(
-                maxLines: 8,
-                text:
-                    'Nuzno pososat realno sladkiy chlen. Ohh kak zhe ya budu sosat wy prosto ne ponimayete'),
-            const SizedBox(height: Constants.padding20),
-            _DateIndicator(event: event),
-            const SizedBox(height: Constants.padding20),
-            const _TimeIndicator(),
-            const SizedBox(height: Constants.padding20),
-            _StatusPicker(
-              currentStatus: event?.status ?? EventStatus.todo,
-            ),
-            const SizedBox(height: Constants.padding20),
-            _SaveEditButton(),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -137,7 +155,9 @@ class _DateIndicator extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.all(Constants.space8),
-            child: Text(event == null ? DateTime.now().yMd : event!.date.yMd),
+            child: Text(event == null
+                ? context.read<CreateEditEventCubit>().state.eventDate.yMd
+                : event!.date.yMd),
           )),
       onTap: () async {
         final result = await showDatePicker(
@@ -156,7 +176,9 @@ class _DateIndicator extends StatelessWidget {
           firstDate: DateTime.now(),
           lastDate: DateTime.now().add(const Duration(days: 365)),
         );
-        if (result != null && context.mounted) {}
+        if (result != null && context.mounted) {
+          context.read<CreateEditEventCubit>().onDateChanged(result);
+        }
       },
     );
   }
@@ -168,29 +190,40 @@ class _TimeIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        DateTime now = DateTime.now();
-        await TimeRangePickerWidget.show(
-          context: context,
-          initialStartTime: DateTime(now.year, now.month, now.day, now.hour,
-              (now.minute - (now.minute % 5)).toInt()),
-          initialEndTime: DateTime(now.year, now.month, now.day, now.hour,
-              (now.minute - (now.minute % 5)).toInt() + 30),
-          onStartTimeChanged: (p0) {},
-          onEndTimeChanged: (p0) {},
+    return BlocBuilder<CreateEditEventCubit, CreateEditEventState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () async {
+            await TimeRangePickerWidget.show(
+              context: context,
+              initialStartTime: event != null
+                  ? event!.timeFrom
+                  : context.read<CreateEditEventCubit>().state.timeFrom,
+              initialEndTime: event != null
+                  ? event!.timeTo
+                  : context.read<CreateEditEventCubit>().state.timeTo,
+              onStartTimeChanged: (timeFrom) {},
+              onEndTimeChanged: (timeTo) {},
+            );
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _TimePicker(
+                  time: event != null
+                      ? event!.timeFrom
+                      : context.read<CreateEditEventCubit>().state.timeFrom),
+              const SizedBox(width: Constants.space5),
+              const Text('-'),
+              const SizedBox(width: Constants.space5),
+              _TimePicker(
+                  time: event != null
+                      ? event!.timeTo
+                      : context.read<CreateEditEventCubit>().state.timeTo)
+            ],
+          ),
         );
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _TimePicker(time: event?.timeFrom),
-          const SizedBox(width: Constants.space5),
-          const Text('-'),
-          const SizedBox(width: Constants.space5),
-          _TimePicker(time: event?.timeTo)
-        ],
-      ),
     );
   }
 }
@@ -242,28 +275,23 @@ class _StatusPickerState extends State<_StatusPicker> {
         label: AppLocalizations.of(context)!.story,
       ),
     ];
-    var dropDownValue = entries.firstWhere(
-      (element) => element.value == widget.currentStatus,
-    );
     return DropdownMenu(
       initialSelection:
           entries.where((element) => element.value == widget.currentStatus),
       dropdownMenuEntries: entries,
       textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-          color: dropDownValue.value == EventStatus.todo
+          color: context.read<CreateEditEventCubit>().state.eventStatus ==
+                  EventStatus.todo
               ? Palette.toDoColor
-              : dropDownValue.value == EventStatus.done
+              : context.read<CreateEditEventCubit>().state.eventStatus ==
+                      EventStatus.done
                   ? Palette.doneColor
-                  : dropDownValue.value == EventStatus.inProgress
+                  : context.read<CreateEditEventCubit>().state.eventStatus ==
+                          EventStatus.inProgress
                       ? Palette.inProgressColor
                       : Palette.storyColor),
-      onSelected: (value) {
-        setState(() {
-          dropDownValue =
-              entries.firstWhere((element) => element.value == value);
-        });
-        log(dropDownValue.value.toString());
-      },
+      onSelected: (value) =>
+          context.read<CreateEditEventCubit>().onStatusChanged(value),
     );
   }
 }
@@ -275,9 +303,63 @@ class _SaveEditButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () => context.read<CreateEditEventCubit>().onCreateEvent(),
         child: Text(isEditing
             ? AppLocalizations.of(context)!.edit
             : AppLocalizations.of(context)!.create));
+  }
+}
+
+class _TimeRangePicker extends StatefulWidget {
+  const _TimeRangePicker({required this.timeFrom, required this.timeTo});
+
+  final DateTime timeFrom;
+  final DateTime timeTo;
+
+  @override
+  State<_TimeRangePicker> createState() => _TimeRangePickerState();
+}
+
+class _TimeRangePickerState extends State<_TimeRangePicker> {
+  late final TextEditingController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    controller.text = '${widget.timeFrom.hm} - ${widget.timeTo.hm}';
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.3,
+      ),
+      child: TextField(
+        controller: controller,
+        readOnly: true,
+        onTap: () async {
+          var start = context.read<CreateEditEventCubit>().state.timeFrom;
+          var end = context.read<CreateEditEventCubit>().state.timeTo;
+          await TimeRangePickerWidget.show(
+            context: context,
+            initialStartTime: start,
+            initialEndTime: end,
+            onStartTimeChanged: (value) => start = value,
+            onEndTimeChanged: (value) => end = value,
+          );
+          if (context.mounted) {
+            context.read<CreateEditEventCubit>().onTimeChanged(start, end);
+          }
+        },
+      ),
+    );
   }
 }

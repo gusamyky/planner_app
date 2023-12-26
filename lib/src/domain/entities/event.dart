@@ -13,11 +13,12 @@ class Event extends Equatable {
 
   final String title;
   final String description;
-  final EventStatus status;
-  final DateTime date;
+  final EventStatus status; //json converter string to status (local base)
+  final DateTime date; //same with all dates
   final DateTime timeFrom;
   final DateTime timeTo;
 
   @override
-  List<Object?> get props => [title, description, status, date];
+  List<Object?> get props =>
+      [title, description, status, date, timeFrom, timeTo];
 }

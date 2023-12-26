@@ -12,8 +12,7 @@ Future<void> setupInjection() async {
 }
 
 void _injectBlocs() {
-  sl
-    ..registerFactory<CreateEditEventCubit>(
-      () => CreateEditEventCubit(),
-    );
+  sl.registerFactory<CreateEditEventCubit>(
+    () => CreateEditEventCubit(),
+  );
 }
