@@ -37,7 +37,7 @@ class EventTile extends StatelessWidget {
                             ),
                       ),
                       Text(
-                        '${event.time.yMd} - ${event.time.hm}',
+                        '${event.date.yMd} - ${event.timeFrom.hm}',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: AppColors.white,
                             ),

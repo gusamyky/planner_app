@@ -25,6 +25,7 @@ class Constants {
   static const double padding7 = 7;
   static const double padding10 = 10;
   static const double padding15 = 15;
+  static const double padding20 = 20;
 
   static const double appPadding = 30;
   static const double appContainerPadding = 35;

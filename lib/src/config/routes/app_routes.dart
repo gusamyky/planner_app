@@ -4,4 +4,5 @@ class AppRoutes {
   static const String month = '/month';
   static const String allEvents = '/all-events';
   static const String eventDetails = '/event-details';
+  static const String createEditEvent = '/create-edit-event';
 }

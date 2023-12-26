@@ -1,10 +1,16 @@
 {
   "all_events": "All events",
+  "create": "Create",
+  "create_event": "Create event",
+  "description": "Description",
   "done": "Done",
+  "edit": "Edit",
+  "edit_event": "Edit event",
   "home": "Home",
   "in_progress": "In progress",
   "month": "Month",
   "story": "Story",
+  "title": "Title",
   "to_do": "To do",
   "today": "Today"
 }

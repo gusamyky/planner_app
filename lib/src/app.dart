@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:planner_app/src/config/routes/app_router.dart';
 import 'package:planner_app/src/config/styles/app_theme.dart';
@@ -11,8 +12,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: _appRouter.config(),
-      title: 'Planner app',
+      routerDelegate: AutoRouterDelegate(
+        _appRouter,
+        navigatorObservers: () => [AutoRouteObserver()],
+      ),
+      routeInformationParser: _appRouter.defaultRouteParser(),
       theme: AppTheme.dark,
       darkTheme: AppTheme.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,

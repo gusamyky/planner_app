@@ -21,6 +21,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AllEventsPage(),
       );
     },
+    CreateEditEventRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateEditEventRouteArgs>(
+          orElse: () => const CreateEditEventRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CreateEditEventPage(
+          event: args.event,
+          key: args.key,
+        ),
+      );
+    },
     DayRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -41,6 +52,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomePage(),
+      );
+    },
+    MainRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MainScreen(),
       );
     },
     MonthRoute.name: (routeData) {
@@ -64,6 +81,44 @@ class AllEventsRoute extends PageRouteInfo<void> {
   static const String name = 'AllEventsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CreateEditEventPage]
+class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
+  CreateEditEventRoute({
+    Event? event,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CreateEditEventRoute.name,
+          args: CreateEditEventRouteArgs(
+            event: event,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateEditEventRoute';
+
+  static const PageInfo<CreateEditEventRouteArgs> page =
+      PageInfo<CreateEditEventRouteArgs>(name);
+}
+
+class CreateEditEventRouteArgs {
+  const CreateEditEventRouteArgs({
+    this.event,
+    this.key,
+  });
+
+  final Event? event;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CreateEditEventRouteArgs{event: $event, key: $key}';
+  }
 }
 
 /// generated route for
@@ -127,6 +182,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MainScreen]
+class MainRoute extends PageRouteInfo<void> {
+  const MainRoute({List<PageRouteInfo>? children})
+      : super(
+          MainRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MainRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

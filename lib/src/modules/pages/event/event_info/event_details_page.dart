@@ -15,7 +15,7 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        appBarTitle: 'Title',
+        appBarTitle: event.title,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -27,7 +27,7 @@ class EventPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _StatusIndicator(status: event.status),
-                  _DateIndicator(eventTime: event.time),
+                  _DateIndicator(eventTime: event.date),
                 ],
               )
             ],

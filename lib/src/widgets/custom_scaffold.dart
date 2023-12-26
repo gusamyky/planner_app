@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:planner_app/src/config/routes/app_router.dart';
 import 'package:planner_app/src/config/routes/app_routes.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/app_icons.dart';
@@ -36,7 +37,9 @@ class CustomScaffold extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: Constants.space11),
                   child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context.router.push(CreateEditEventRoute());
+                      },
                       child: const CircleAvatar(
                           backgroundColor: AppColors.gray,
                           child: AppIcon(icon: AppIcons.plus))),
@@ -56,14 +59,6 @@ class CustomScaffold extends StatelessWidget {
               child: body,
             )
           : body,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Palette.navBarColor,
-        items: _tabs(context),
-        currentIndex: _calculateSelectedIndex(context),
-        onTap: (index) =>
-            context.router.replaceNamed(_tabs(context)[index].initialLocation),
-      ),
     );
   }
 }
