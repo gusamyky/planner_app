@@ -20,14 +20,14 @@ class EventPage extends StatelessWidget {
           child: Column(
             children: [
               _DescriptionWidget(
-                description: event.description,
+                description: event.description!,
               ),
               const SizedBox(height: Constants.appPadding),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _StatusIndicator(status: event.status),
-                  _DateIndicator(eventTime: event.date),
+                  _DateIndicator(eventTime: event.date!),
                 ],
               )
             ],

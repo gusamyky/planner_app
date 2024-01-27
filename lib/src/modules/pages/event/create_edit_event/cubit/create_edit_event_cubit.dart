@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,14 +42,18 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
   void onStatusChanged(EventStatus status) =>
       emit(state.copyWith(eventStatus: status));
 
-  void onCreateEvent() {
+  void onCreateEvent() async {
+    emit(state.copyWith(dbStatus: DbStatus.adding));
     final newEvent = Event(
-        title: state.eventTitle,
-        description: state.eventDescription,
-        status: state.eventStatus,
-        date: state.eventDate,
-        timeFrom: state.timeFrom,
-        timeTo: state.timeTo);
-    log(newEvent.toString());
+      title: state.eventTitle,
+      description: state.eventDescription,
+      status: state.eventStatus,
+      date: state.eventDate,
+      timeFrom: state.timeFrom,
+      timeTo: state.timeTo,
+    );
+    await IsarService()
+        .addEvent(newEvent)
+        .then((value) => emit(state.copyWith(dbStatus: DbStatus.added)));
   }
 }

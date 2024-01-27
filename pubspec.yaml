@@ -20,15 +20,19 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.1
+  isar: ^3.0.0-dev.8
+  isar_flutter_libs: ^3.1.0+1
   flutter_svg: ^2.0.9
   equatable: ^2.0.5
   json_annotation: ^4.8.1
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  isar_generator: ^3.1.0+1
+  flutter_lints: ^3.0.1
   freezed: ^2.4.5
   build_runner: ^2.4.6
   json_serializable: ^6.7.1

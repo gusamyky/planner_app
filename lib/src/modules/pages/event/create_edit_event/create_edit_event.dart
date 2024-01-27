@@ -5,6 +5,7 @@ import 'package:planner_app/injector.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/helpers/date_time_extensions.dart';
+import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +23,14 @@ class CreateEditEventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<CreateEditEventCubit>(
       create: (context) => sl<CreateEditEventCubit>(),
-      child: BlocBuilder<CreateEditEventCubit, CreateEditEventState>(
+      child: BlocConsumer<CreateEditEventCubit, CreateEditEventState>(
+        listener: (BuildContext context, CreateEditEventState state) {
+          if (state.dbStatus == DbStatus.added) {
+            context.router.pop();
+          }
+        },
+        listenWhen: (previous, current) =>
+            current.dbStatus != previous.dbStatus,
         builder: (context, state) {
           return CustomScaffold(
             appBarTitle: event == null
@@ -157,7 +165,7 @@ class _DateIndicator extends StatelessWidget {
             padding: const EdgeInsets.all(Constants.space8),
             child: Text(event == null
                 ? context.read<CreateEditEventCubit>().state.eventDate.yMd
-                : event!.date.yMd),
+                : event!.date!.yMd),
           )),
       onTap: () async {
         final result = await showDatePicker(
@@ -172,7 +180,7 @@ class _DateIndicator extends StatelessWidget {
               child: child!),
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           context: context,
-          initialDate: event != null ? event!.date : DateTime.now(),
+          initialDate: event != null ? event!.date! : DateTime.now(),
           firstDate: DateTime.now(),
           lastDate: DateTime.now().add(const Duration(days: 365)),
         );
@@ -197,10 +205,10 @@ class _TimeIndicator extends StatelessWidget {
             await TimeRangePickerWidget.show(
               context: context,
               initialStartTime: event != null
-                  ? event!.timeFrom
+                  ? event!.timeFrom!
                   : context.read<CreateEditEventCubit>().state.timeFrom,
               initialEndTime: event != null
-                  ? event!.timeTo
+                  ? event!.timeTo!
                   : context.read<CreateEditEventCubit>().state.timeTo,
               onStartTimeChanged: (timeFrom) {},
               onEndTimeChanged: (timeTo) {},

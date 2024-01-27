@@ -7,38 +7,6 @@ import 'package:planner_app/src/widgets/custom_scaffold.dart';
 
 final now = DateTime.now();
 
-final eventList = <Event>[
-  Event(
-    title: 'Title first',
-    description: 'Description first',
-    status: EventStatus.todo,
-    date: now,
-    timeFrom: now,
-    timeTo: now,
-  ),
-  Event(
-      title: 'Title second',
-      description: 'Description second',
-      status: EventStatus.inProgress,
-      date: now,
-      timeFrom: now,
-      timeTo: now),
-  Event(
-      title: 'Title third',
-      description: 'Description third',
-      status: EventStatus.done,
-      date: now,
-      timeFrom: now,
-      timeTo: now),
-  Event(
-      title: 'Title fourth',
-      description: 'Description fourth',
-      status: EventStatus.story,
-      date: now,
-      timeFrom: now,
-      timeTo: now),
-];
-
 @RoutePage()
 class DayPage extends StatelessWidget {
   const DayPage({super.key});
@@ -48,11 +16,17 @@ class DayPage extends StatelessWidget {
     return CustomScaffold(
       appBarTitle: AppLocalizations.of(context)!.today,
       body: ListView.builder(
-        itemCount: eventList.length,
+        itemCount: 5,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: EventTile(
-            event: eventList[index],
+            event: Event(
+                title: 'title',
+                description: 'description',
+                status: EventStatus.done,
+                date: DateTime.now(),
+                timeFrom: DateTime.now(),
+                timeTo: DateTime.now()),
           ),
         ),
       ),

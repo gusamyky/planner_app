@@ -31,13 +31,13 @@ class EventTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        event.title,
+                        event.title!,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: AppColors.white,
                             ),
                       ),
                       Text(
-                        '${event.date.yMd} - ${event.timeFrom.hm}',
+                        '${event.date?.yMd} - ${event.timeFrom?.hm}',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: AppColors.white,
                             ),
@@ -46,7 +46,7 @@ class EventTile extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.space8),
                   Text(
-                    event.description,
+                    event.description!,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: AppColors.white,
                         ),
