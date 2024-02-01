@@ -27,7 +27,9 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: CreateEditEventPage(
+          allEventsCubit: args.allEventsCubit,
           event: args.event,
+          homePageCubit: args.homePageCubit,
           key: args.key,
         ),
       );
@@ -87,13 +89,17 @@ class AllEventsRoute extends PageRouteInfo<void> {
 /// [CreateEditEventPage]
 class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
   CreateEditEventRoute({
+    AllEventsCubit? allEventsCubit,
     Event? event,
+    HomePageCubit? homePageCubit,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           CreateEditEventRoute.name,
           args: CreateEditEventRouteArgs(
+            allEventsCubit: allEventsCubit,
             event: event,
+            homePageCubit: homePageCubit,
             key: key,
           ),
           initialChildren: children,
@@ -107,17 +113,23 @@ class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
 
 class CreateEditEventRouteArgs {
   const CreateEditEventRouteArgs({
+    this.allEventsCubit,
     this.event,
+    this.homePageCubit,
     this.key,
   });
 
+  final AllEventsCubit? allEventsCubit;
+
   final Event? event;
+
+  final HomePageCubit? homePageCubit;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'CreateEditEventRouteArgs{event: $event, key: $key}';
+    return 'CreateEditEventRouteArgs{allEventsCubit: $allEventsCubit, event: $event, homePageCubit: $homePageCubit, key: $key}';
   }
 }
 

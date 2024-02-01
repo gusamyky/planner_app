@@ -12,19 +12,16 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      routes: [HomeRoute(), DayRoute(), MonthRoute(), AllEventsRoute()],
-      builder: (context, child) {
+    return AutoTabsScaffold(
+      routes: const [HomeRoute(), DayRoute(), MonthRoute(), AllEventsRoute()],
+      bottomNavigationBuilder: (context, tabsRouter) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Palette.navBarColor,
-            items: _tabs(context),
-            currentIndex: tabsRouter.activeIndex,
-            onTap: tabsRouter.setActiveIndex,
-          ),
+        return BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Palette.navBarColor,
+          items: _tabs(context),
+          currentIndex: tabsRouter.activeIndex,
+          onTap: tabsRouter.setActiveIndex,
         );
       },
     );

@@ -2,13 +2,17 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
+import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 
 part 'create_edit_event_state.dart';
 part 'create_edit_event_cubit.freezed.dart';
 
 class CreateEditEventCubit extends Cubit<CreateEditEventState> {
-  CreateEditEventCubit()
-      : super(CreateEditEventState.initial(
+  CreateEditEventCubit({
+    required this.allEventsCubit,
+    required this.homePageCubit,
+  }) : super(CreateEditEventState.initial(
           eventDate: DateTime.now(),
           timeFrom: DateTime(
               DateTime.now().year,
@@ -23,6 +27,9 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
               DateTime.now().hour,
               (DateTime.now().minute - (DateTime.now().minute % 5)).toInt()),
         ));
+
+  final AllEventsCubit allEventsCubit;
+  final HomePageCubit homePageCubit;
 
   void onTitleChanged(String title) => emit(state.copyWith(eventTitle: title));
 
@@ -55,5 +62,10 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
     await IsarService()
         .addEvent(newEvent)
         .then((value) => emit(state.copyWith(dbStatus: DbStatus.added)));
+  }
+
+  void updateStates() {
+    allEventsCubit.getAllEvents();
+    homePageCubit.getHomeEvents();
   }
 }

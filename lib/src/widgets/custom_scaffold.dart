@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner_app/src/config/routes/app_router.dart';
-import 'package:planner_app/src/config/routes/app_routes.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/app_icons.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
+import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold(
@@ -38,7 +39,10 @@ class CustomScaffold extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: Constants.space11),
                   child: InkWell(
                       onTap: () {
-                        context.router.push(CreateEditEventRoute());
+                        context.router.push(CreateEditEventRoute(
+                          allEventsCubit: context.read<AllEventsCubit>(),
+                          homePageCubit: context.read<HomePageCubit>(),
+                        ));
                       },
                       child: const CircleAvatar(
                           backgroundColor: AppColors.gray,
@@ -72,51 +76,4 @@ class BNBItem extends BottomNavigationBarItem {
   });
 
   final String initialLocation;
-}
-
-List<BNBItem> _tabs(BuildContext context) => <BNBItem>[
-      BNBItem(
-        initialLocation: AppRoutes.home,
-        icon: const AppIcon(icon: AppIcons.home),
-        activeIcon: const AppIcon(
-          icon: AppIcons.home,
-          color: Palette.selected,
-        ),
-        label: AppLocalizations.of(context)!.home,
-      ),
-      BNBItem(
-        initialLocation: AppRoutes.dayView,
-        icon: const AppIcon(icon: AppIcons.calendarDay),
-        activeIcon: const AppIcon(
-          icon: AppIcons.calendarDay,
-          color: Palette.selected,
-        ),
-        label: AppLocalizations.of(context)!.today,
-      ),
-      BNBItem(
-        initialLocation: AppRoutes.month,
-        icon: const AppIcon(icon: AppIcons.calendar),
-        activeIcon: const AppIcon(
-          icon: AppIcons.calendar,
-          color: Palette.selected,
-        ),
-        label: AppLocalizations.of(context)!.month,
-      ),
-      BNBItem(
-        initialLocation: AppRoutes.allEvents,
-        icon: const AppIcon(icon: AppIcons.calendar),
-        activeIcon: const AppIcon(
-          icon: AppIcons.calendar,
-          color: Palette.selected,
-        ),
-        label: AppLocalizations.of(context)!.all_events,
-      ),
-    ];
-
-int _calculateSelectedIndex(BuildContext context) {
-  final location = context.router.current.path;
-  final index = _tabs(context).indexWhere(
-    (t) => location.startsWith(t.initialLocation),
-  );
-  return index < 0 ? 0 : index;
 }

@@ -11,11 +11,11 @@ class AllEventsCubit extends Cubit<AllEventsState> {
 
   final isarService = IsarService();
 
-  void getAllEvents() async {
+  Future<void> getAllEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
     await isarService.fetchEvents().then((allEvents) {
       allEvents.sort(
-        (a, b) => a.date!.compareTo(b.date!),
+        (a, b) => a.timeFrom!.compareTo(b.timeFrom!),
       );
       emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
     });
