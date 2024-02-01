@@ -55,7 +55,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       title: state.eventTitle,
       description: state.eventDescription,
       status: state.eventStatus,
-      date: state.eventDate,
+      date: state.timeFrom,
       timeFrom: state.timeFrom,
       timeTo: state.timeTo,
     );
