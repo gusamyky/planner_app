@@ -18,15 +18,19 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: MainRoute.page, initial: true, children: [
           AutoRoute(
+            maintainState: false,
             page: HomeRoute.page,
           ),
           AutoRoute(
+            maintainState: false,
             page: DayRoute.page,
           ),
           AutoRoute(
+            maintainState: false,
             page: MonthRoute.page,
           ),
           AutoRoute(
+            maintainState: false,
             page: AllEventsRoute.page,
           ),
         ]),
