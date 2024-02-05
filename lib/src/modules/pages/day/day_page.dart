@@ -1,43 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:planner_app/src/domain/entities/event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planner_app/injector.dart';
+import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/widgets/event_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
 
 final now = DateTime.now();
-
-final eventList = <Event>[
-  Event(
-    title: 'Title first',
-    description: 'Description first',
-    status: EventStatus.todo,
-    date: now,
-    timeFrom: now,
-    timeTo: now,
-  ),
-  Event(
-      title: 'Title second',
-      description: 'Description second',
-      status: EventStatus.inProgress,
-      date: now,
-      timeFrom: now,
-      timeTo: now),
-  Event(
-      title: 'Title third',
-      description: 'Description third',
-      status: EventStatus.done,
-      date: now,
-      timeFrom: now,
-      timeTo: now),
-  Event(
-      title: 'Title fourth',
-      description: 'Description fourth',
-      status: EventStatus.story,
-      date: now,
-      timeFrom: now,
-      timeTo: now),
-];
 
 @RoutePage()
 class DayPage extends StatelessWidget {
@@ -45,16 +15,30 @@ class DayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      appBarTitle: AppLocalizations.of(context)!.today,
-      body: ListView.builder(
-        itemCount: eventList.length,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: EventTile(
-            event: eventList[index],
-          ),
-        ),
+    return BlocProvider<DayPageCubit>(
+      create: (context) => sl<DayPageCubit>()..getDayEvents(),
+      child: BlocConsumer<DayPageCubit, DayPageState>(
+        listenWhen: (previous, current) =>
+            previous.dbStatus != current.dbStatus,
+        listener: (context, state) {},
+        builder: (context, state) {
+          return CustomScaffold(
+            appBarTitle: AppLocalizations.of(context)!.today,
+            body: ListView.builder(
+              itemCount: state.dayEvents.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: EventTile(
+                  event: state.dayEvents[index],
+                  onDismissed: () => context
+                      .read<DayPageCubit>()
+                      .deleteEvent(state.dayEvents[index]),
+                  dayPageCubit: context.read<DayPageCubit>(),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

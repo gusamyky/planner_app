@@ -27,7 +27,11 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: CreateEditEventPage(
+          allEventsCubit: args.allEventsCubit,
           event: args.event,
+          homePageCubit: args.homePageCubit,
+          dayPageCubit: args.dayPageCubit,
+          monthPageCubit: args.monthPageCubit,
           key: args.key,
         ),
       );
@@ -87,13 +91,21 @@ class AllEventsRoute extends PageRouteInfo<void> {
 /// [CreateEditEventPage]
 class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
   CreateEditEventRoute({
+    AllEventsCubit? allEventsCubit,
     Event? event,
+    HomePageCubit? homePageCubit,
+    DayPageCubit? dayPageCubit,
+    MonthPageCubit? monthPageCubit,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           CreateEditEventRoute.name,
           args: CreateEditEventRouteArgs(
+            allEventsCubit: allEventsCubit,
             event: event,
+            homePageCubit: homePageCubit,
+            dayPageCubit: dayPageCubit,
+            monthPageCubit: monthPageCubit,
             key: key,
           ),
           initialChildren: children,
@@ -107,17 +119,29 @@ class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
 
 class CreateEditEventRouteArgs {
   const CreateEditEventRouteArgs({
+    this.allEventsCubit,
     this.event,
+    this.homePageCubit,
+    this.dayPageCubit,
+    this.monthPageCubit,
     this.key,
   });
 
+  final AllEventsCubit? allEventsCubit;
+
   final Event? event;
+
+  final HomePageCubit? homePageCubit;
+
+  final DayPageCubit? dayPageCubit;
+
+  final MonthPageCubit? monthPageCubit;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'CreateEditEventRouteArgs{event: $event, key: $key}';
+    return 'CreateEditEventRouteArgs{allEventsCubit: $allEventsCubit, event: $event, homePageCubit: $homePageCubit, dayPageCubit: $dayPageCubit, monthPageCubit: $monthPageCubit, key: $key}';
   }
 }
 

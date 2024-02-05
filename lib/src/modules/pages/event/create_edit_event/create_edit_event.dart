@@ -5,24 +5,69 @@ import 'package:planner_app/injector.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/helpers/date_time_extensions.dart';
+import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
+import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/cubit/create_edit_event_cubit.dart';
+import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
 import 'package:planner_app/src/widgets/custom_text_field.dart';
 import 'package:planner_app/src/widgets/time_range_picker.dart';
 
 @RoutePage()
 class CreateEditEventPage extends StatelessWidget {
-  const CreateEditEventPage({this.event, super.key});
+  const CreateEditEventPage({
+    this.allEventsCubit,
+    this.event,
+    this.homePageCubit,
+    this.dayPageCubit,
+    this.monthPageCubit,
+    super.key,
+  });
   final Event? event;
+  final AllEventsCubit? allEventsCubit;
+  final HomePageCubit? homePageCubit;
+  final DayPageCubit? dayPageCubit;
+  final MonthPageCubit? monthPageCubit;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CreateEditEventCubit>(
-      create: (context) => sl<CreateEditEventCubit>(),
-      child: BlocBuilder<CreateEditEventCubit, CreateEditEventState>(
+      create: (context) => sl<CreateEditEventCubit>()..onInitial(event),
+      child: BlocConsumer<CreateEditEventCubit, CreateEditEventState>(
+        listener: (BuildContext context, CreateEditEventState state) async {
+          if (state.dbStatus == DbStatus.edited) {
+            if (allEventsCubit != null) {
+              allEventsCubit!.getAllEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            } else if (homePageCubit != null) {
+              homePageCubit!.getHomeEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            } else if (dayPageCubit != null) {
+              dayPageCubit!.getDayEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            } else if (monthPageCubit != null) {
+              monthPageCubit!.getMonthEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            }
+          } else if (state.dbStatus == DbStatus.added) {
+            allEventsCubit!.getAllEvents();
+            homePageCubit!.getHomeEvents();
+            dayPageCubit!.getDayEvents();
+            monthPageCubit!.getMonthEvents();
+            context.router.pop();
+          }
+        },
+        listenWhen: (previous, current) =>
+            current.dbStatus != previous.dbStatus,
         builder: (context, state) {
           return CustomScaffold(
             appBarTitle: event == null
@@ -76,66 +121,14 @@ class CreateEditEventPage extends StatelessWidget {
                     currentStatus: event?.status ?? EventStatus.todo,
                   ),
                   const SizedBox(height: Constants.padding20),
-                  _SaveEditButton(),
+                  _SaveEditButton(
+                    event: event,
+                  ),
                 ],
               ),
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _DescriptionWidget extends StatelessWidget {
-  const _DescriptionWidget({required this.description});
-
-  final String description;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(
-          horizontal: Constants.padding10, vertical: Constants.padding15),
-      decoration: BoxDecoration(
-          color: Palette.navBarColor,
-          borderRadius: BorderRadius.circular(Constants.radius15)),
-      child: Text(description),
-    );
-  }
-}
-
-class _StatusIndicator extends StatelessWidget {
-  const _StatusIndicator({
-    required this.status,
-  });
-
-  final EventStatus status;
-
-  @override
-  Widget build(BuildContext context) {
-    final statusStr = status == EventStatus.todo
-        ? AppLocalizations.of(context)!.to_do
-        : status == EventStatus.done
-            ? AppLocalizations.of(context)!.done
-            : status == EventStatus.inProgress
-                ? AppLocalizations.of(context)!.in_progress
-                : AppLocalizations.of(context)!.story;
-    return Container(
-      padding: const EdgeInsets.all(Constants.padding7),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Constants.radius12),
-          color: status == EventStatus.todo
-              ? Palette.toDoColor
-              : status == EventStatus.done
-                  ? Palette.doneColor
-                  : status == EventStatus.inProgress
-                      ? Palette.inProgressColor
-                      : Palette.storyColor),
-      child: Text(
-        statusStr,
-        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }
@@ -157,7 +150,7 @@ class _DateIndicator extends StatelessWidget {
             padding: const EdgeInsets.all(Constants.space8),
             child: Text(event == null
                 ? context.read<CreateEditEventCubit>().state.eventDate.yMd
-                : event!.date.yMd),
+                : event!.date!.yMd),
           )),
       onTap: () async {
         final result = await showDatePicker(
@@ -172,7 +165,7 @@ class _DateIndicator extends StatelessWidget {
               child: child!),
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           context: context,
-          initialDate: event != null ? event!.date : DateTime.now(),
+          initialDate: event != null ? event!.date! : DateTime.now(),
           firstDate: DateTime.now(),
           lastDate: DateTime.now().add(const Duration(days: 365)),
         );
@@ -184,70 +177,8 @@ class _DateIndicator extends StatelessWidget {
   }
 }
 
-class _TimeIndicator extends StatelessWidget {
-  const _TimeIndicator({this.event, super.key});
-  final Event? event;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CreateEditEventCubit, CreateEditEventState>(
-      builder: (context, state) {
-        return GestureDetector(
-          onTap: () async {
-            await TimeRangePickerWidget.show(
-              context: context,
-              initialStartTime: event != null
-                  ? event!.timeFrom
-                  : context.read<CreateEditEventCubit>().state.timeFrom,
-              initialEndTime: event != null
-                  ? event!.timeTo
-                  : context.read<CreateEditEventCubit>().state.timeTo,
-              onStartTimeChanged: (timeFrom) {},
-              onEndTimeChanged: (timeTo) {},
-            );
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _TimePicker(
-                  time: event != null
-                      ? event!.timeFrom
-                      : context.read<CreateEditEventCubit>().state.timeFrom),
-              const SizedBox(width: Constants.space5),
-              const Text('-'),
-              const SizedBox(width: Constants.space5),
-              _TimePicker(
-                  time: event != null
-                      ? event!.timeTo
-                      : context.read<CreateEditEventCubit>().state.timeTo)
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _TimePicker extends StatelessWidget {
-  const _TimePicker({this.time, super.key});
-  final DateTime? time;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Constants.padding15),
-          color: Palette.tileColor,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(Constants.space8),
-          child: Text(time == null ? DateTime.now().hm : time!.hm),
-        ));
-  }
-}
-
 class _StatusPicker extends StatefulWidget {
-  const _StatusPicker({this.currentStatus = EventStatus.todo, super.key});
+  const _StatusPicker({this.currentStatus = EventStatus.todo});
   final EventStatus? currentStatus;
 
   @override
@@ -297,14 +228,18 @@ class _StatusPickerState extends State<_StatusPicker> {
 }
 
 class _SaveEditButton extends StatelessWidget {
-  const _SaveEditButton({this.isEditing = false, super.key});
-  final bool isEditing;
+  const _SaveEditButton({this.event});
+  final Event? event;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () => context.read<CreateEditEventCubit>().onCreateEvent(),
-        child: Text(isEditing
+        onPressed: () {
+          event != null
+              ? context.read<CreateEditEventCubit>().onEditEvent(event!)
+              : context.read<CreateEditEventCubit>().onCreateEvent();
+        },
+        child: Text(event != null
             ? AppLocalizations.of(context)!.edit
             : AppLocalizations.of(context)!.create));
   }
