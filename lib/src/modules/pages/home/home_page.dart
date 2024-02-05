@@ -30,6 +30,12 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: EventTile(
                     event: state.homePageEvents[index],
+                    onDismissed: () async {
+                      await context
+                          .read<HomePageCubit>()
+                          .deleteEvent(state.homePageEvents[index]);
+                    },
+                    homePageCubit: context.read<HomePageCubit>(),
                   ),
                 ),
               ),

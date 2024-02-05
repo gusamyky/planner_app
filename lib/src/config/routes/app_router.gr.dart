@@ -31,6 +31,7 @@ abstract class _$AppRouter extends RootStackRouter {
           event: args.event,
           homePageCubit: args.homePageCubit,
           dayPageCubit: args.dayPageCubit,
+          monthPageCubit: args.monthPageCubit,
           key: args.key,
         ),
       );
@@ -94,6 +95,7 @@ class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
     Event? event,
     HomePageCubit? homePageCubit,
     DayPageCubit? dayPageCubit,
+    MonthPageCubit? monthPageCubit,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
@@ -103,6 +105,7 @@ class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
             event: event,
             homePageCubit: homePageCubit,
             dayPageCubit: dayPageCubit,
+            monthPageCubit: monthPageCubit,
             key: key,
           ),
           initialChildren: children,
@@ -120,6 +123,7 @@ class CreateEditEventRouteArgs {
     this.event,
     this.homePageCubit,
     this.dayPageCubit,
+    this.monthPageCubit,
     this.key,
   });
 
@@ -131,11 +135,13 @@ class CreateEditEventRouteArgs {
 
   final DayPageCubit? dayPageCubit;
 
+  final MonthPageCubit? monthPageCubit;
+
   final Key? key;
 
   @override
   String toString() {
-    return 'CreateEditEventRouteArgs{allEventsCubit: $allEventsCubit, event: $event, homePageCubit: $homePageCubit, dayPageCubit: $dayPageCubit, key: $key}';
+    return 'CreateEditEventRouteArgs{allEventsCubit: $allEventsCubit, event: $event, homePageCubit: $homePageCubit, dayPageCubit: $dayPageCubit, monthPageCubit: $monthPageCubit, key: $key}';
   }
 }
 

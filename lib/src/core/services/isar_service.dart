@@ -4,7 +4,18 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
-enum DbStatus { init, adding, added, loading, loaded, error }
+enum DbStatus {
+  init,
+  adding,
+  added,
+  loading,
+  loaded,
+  deleting,
+  deleted,
+  editing,
+  edited,
+  error
+}
 
 class IsarService {
   static late Isar isar;
@@ -13,8 +24,6 @@ class IsarService {
     final dir = await getApplicationDocumentsDirectory();
     isar = await Isar.open([EventSchema], directory: dir.path);
   }
-
-  //list od events
 
   final List<Event> currentEvents = [];
 
@@ -29,21 +38,22 @@ class IsarService {
     List<Event> fetchedEvents = await isar.events.where().findAll();
     currentEvents.clear();
     currentEvents.addAll(fetchedEvents);
-    log(currentEvents.toList().toString());
     return fetchedEvents;
   }
 
   Future<void> updateEvent(int id, Event newEvent) async {
     var existingEvent = await isar.events.get(id);
-    if (existingEvent != null) {
-      existingEvent = newEvent;
-      await isar.writeTxn(() => isar.events.put(existingEvent!));
-      await fetchEvents();
-    }
+    existingEvent = newEvent;
+    isar.writeTxn(() => isar.events.put(existingEvent!));
+    isar.writeTxn(() => isar.events.delete(id));
+
+    await fetchEvents();
   }
 
-  Future<void> deleteEvent(int id) async {
-    await isar.writeTxn(() => isar.events.delete(id));
+  Future<void> deleteEvent(Event event) async {
+    log("enter to delete isar");
+    await isar.writeTxn(() => isar.events.delete(event.id!));
     await fetchEvents();
+    log('deleted isar');
   }
 }

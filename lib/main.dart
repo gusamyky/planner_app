@@ -11,9 +11,3 @@ void main() async {
 
   runApp(App());
 }
-
-//main page - 2 days near
-//today page - today
-//month - month
-//all - all
-//main storage -> cubits for every event list page

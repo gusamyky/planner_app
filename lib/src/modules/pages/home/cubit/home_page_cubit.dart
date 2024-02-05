@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
@@ -12,10 +14,10 @@ class HomePageCubit extends Cubit<HomePageState> {
   final isarService = IsarService();
 
   Future<void> getHomeEvents() async {
+    emit(state.copyWith(dbStatus: DbStatus.loading));
     DateTime today = DateTime.now().subtract(const Duration(days: 1));
     final endDate = today.add(const Duration(days: 2));
     List<Event> filteredEvents = [];
-    emit(state.copyWith(dbStatus: DbStatus.loading));
     final allEvents = await isarService.fetchEvents();
 
     filteredEvents = allEvents
@@ -29,5 +31,12 @@ class HomePageCubit extends Cubit<HomePageState> {
 
     emit(state.copyWith(
         homePageEvents: filteredEvents, dbStatus: DbStatus.loaded));
+
+    log('home events');
+  }
+
+  Future<void> deleteEvent(Event event) async {
+    await isarService.deleteEvent(event);
+    getHomeEvents();
   }
 }

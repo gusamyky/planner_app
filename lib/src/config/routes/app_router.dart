@@ -9,6 +9,7 @@ import 'package:planner_app/src/modules/pages/event/create_edit_event/create_edi
 import 'package:planner_app/src/modules/pages/event/event_info/event_details_page.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/home_page.dart';
+import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/month/month_page.dart';
 import 'package:planner_app/src/widgets/main_screen.dart';
 part 'app_router.gr.dart';

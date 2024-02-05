@@ -41,6 +41,10 @@ class AllEventsPage extends StatelessWidget {
                       ],
                       EventTile(
                         event: state.allEvents[index],
+                        onDismissed: () => context
+                            .read<AllEventsCubit>()
+                            .deleteEvent(state.allEvents[index]),
+                        allEventsCubit: context.read<AllEventsCubit>(),
                       ),
                     ],
                   ),

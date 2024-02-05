@@ -3,6 +3,7 @@ import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.
 import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/cubit/create_edit_event_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -16,13 +17,9 @@ Future<void> setupInjection() async {
 
 void _injectBlocs() {
   sl
-    ..registerFactory<CreateEditEventCubit>(
-      () => CreateEditEventCubit(
-        allEventsCubit: sl<AllEventsCubit>(),
-        homePageCubit: sl<HomePageCubit>(),
-      ),
-    )
+    ..registerFactory<CreateEditEventCubit>(() => CreateEditEventCubit())
     ..registerFactory<AllEventsCubit>(() => AllEventsCubit())
     ..registerFactory<HomePageCubit>(() => HomePageCubit())
-    ..registerFactory<DayPageCubit>(() => DayPageCubit());
+    ..registerFactory<DayPageCubit>(() => DayPageCubit())
+    ..registerFactory<MonthPageCubit>(() => MonthPageCubit());
 }

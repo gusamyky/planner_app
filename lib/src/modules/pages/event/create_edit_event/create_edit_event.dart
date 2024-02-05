@@ -13,6 +13,7 @@ import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.
 import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/cubit/create_edit_event_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
 import 'package:planner_app/src/widgets/custom_text_field.dart';
 import 'package:planner_app/src/widgets/time_range_picker.dart';
@@ -24,27 +25,45 @@ class CreateEditEventPage extends StatelessWidget {
     this.event,
     this.homePageCubit,
     this.dayPageCubit,
+    this.monthPageCubit,
     super.key,
   });
   final Event? event;
   final AllEventsCubit? allEventsCubit;
   final HomePageCubit? homePageCubit;
   final DayPageCubit? dayPageCubit;
+  final MonthPageCubit? monthPageCubit;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CreateEditEventCubit>(
-      create: (context) => sl<CreateEditEventCubit>(),
+      create: (context) => sl<CreateEditEventCubit>()..onInitial(event),
       child: BlocConsumer<CreateEditEventCubit, CreateEditEventState>(
-        listener: (BuildContext context, CreateEditEventState state) {
-          if (state.dbStatus == DbStatus.added) {
-            context.router.pop().then(
-              (_) async {
-                await allEventsCubit!.getAllEvents();
-                await homePageCubit!.getHomeEvents();
-                await dayPageCubit!.getDayEvents();
-              },
-            );
+        listener: (BuildContext context, CreateEditEventState state) async {
+          if (state.dbStatus == DbStatus.edited) {
+            if (allEventsCubit != null) {
+              allEventsCubit!.getAllEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            } else if (homePageCubit != null) {
+              homePageCubit!.getHomeEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            } else if (dayPageCubit != null) {
+              dayPageCubit!.getDayEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            } else if (monthPageCubit != null) {
+              monthPageCubit!.getMonthEvents().then(
+                    (value) => context.router.pop(),
+                  );
+            }
+          } else if (state.dbStatus == DbStatus.added) {
+            allEventsCubit!.getAllEvents();
+            homePageCubit!.getHomeEvents();
+            dayPageCubit!.getDayEvents();
+            monthPageCubit!.getMonthEvents();
+            context.router.pop();
           }
         },
         listenWhen: (previous, current) =>
@@ -103,7 +122,7 @@ class CreateEditEventPage extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.padding20),
                   _SaveEditButton(
-                    isEditing: event != null,
+                    event: event,
                   ),
                 ],
               ),
@@ -209,16 +228,18 @@ class _StatusPickerState extends State<_StatusPicker> {
 }
 
 class _SaveEditButton extends StatelessWidget {
-  const _SaveEditButton({this.isEditing = false});
-  final bool isEditing;
+  const _SaveEditButton({this.event});
+  final Event? event;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          context.read<CreateEditEventCubit>().onCreateEvent();
+          event != null
+              ? context.read<CreateEditEventCubit>().onEditEvent(event!)
+              : context.read<CreateEditEventCubit>().onCreateEvent();
         },
-        child: Text(isEditing
+        child: Text(event != null
             ? AppLocalizations.of(context)!.edit
             : AppLocalizations.of(context)!.create));
   }

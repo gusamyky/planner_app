@@ -9,6 +9,7 @@ import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
 import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold(
@@ -44,6 +45,7 @@ class CustomScaffold extends StatelessWidget {
                           allEventsCubit: context.read<AllEventsCubit>(),
                           homePageCubit: context.read<HomePageCubit>(),
                           dayPageCubit: context.read<DayPageCubit>(),
+                          monthPageCubit: context.read<MonthPageCubit>(),
                         ));
                       },
                       child: const CircleAvatar(

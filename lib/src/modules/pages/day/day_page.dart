@@ -28,7 +28,13 @@ class DayPage extends StatelessWidget {
               itemCount: state.dayEvents.length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: EventTile(event: state.dayEvents[index]),
+                child: EventTile(
+                  event: state.dayEvents[index],
+                  onDismissed: () => context
+                      .read<DayPageCubit>()
+                      .deleteEvent(state.dayEvents[index]),
+                  dayPageCubit: context.read<DayPageCubit>(),
+                ),
               ),
             ),
           );

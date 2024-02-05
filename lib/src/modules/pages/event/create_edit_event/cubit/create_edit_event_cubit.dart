@@ -2,17 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
-import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 
 part 'create_edit_event_state.dart';
 part 'create_edit_event_cubit.freezed.dart';
 
 class CreateEditEventCubit extends Cubit<CreateEditEventState> {
-  CreateEditEventCubit({
-    required this.allEventsCubit,
-    required this.homePageCubit,
-  }) : super(CreateEditEventState.initial(
+  CreateEditEventCubit()
+      : super(CreateEditEventState.initial(
           eventDate: DateTime.now(),
           timeFrom: DateTime(
               DateTime.now().year,
@@ -28,8 +24,17 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
               (DateTime.now().minute - (DateTime.now().minute % 5)).toInt()),
         ));
 
-  final AllEventsCubit allEventsCubit;
-  final HomePageCubit homePageCubit;
+  void onInitial(Event? event) async {
+    emit(state.copyWith(
+      dbStatus: DbStatus.init,
+      eventTitle: event?.title ?? state.eventTitle,
+      eventDescription: event?.description ?? state.eventDescription,
+      eventDate: event?.date ?? state.eventDate,
+      eventStatus: event?.status ?? state.eventStatus,
+      timeFrom: event?.timeFrom ?? state.timeFrom,
+      timeTo: event?.timeTo ?? state.timeTo,
+    ));
+  }
 
   void onTitleChanged(String title) => emit(state.copyWith(eventTitle: title));
 
@@ -49,23 +54,32 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
   void onStatusChanged(EventStatus status) =>
       emit(state.copyWith(eventStatus: status));
 
+  void onEditEvent(Event event) async {
+    emit(state.copyWith(dbStatus: DbStatus.editing));
+    final editedEvent = Event(
+      title: state.eventTitle.trim(),
+      description: state.eventDescription.trim(),
+      status: state.eventStatus,
+      date: state.eventDate,
+      timeFrom: state.timeFrom,
+      timeTo: state.timeTo,
+    );
+    await IsarService().updateEvent(event.id!, editedEvent);
+    emit(state.copyWith(dbStatus: DbStatus.edited));
+  }
+
   void onCreateEvent() async {
     emit(state.copyWith(dbStatus: DbStatus.adding));
     final newEvent = Event(
-      title: state.eventTitle,
-      description: state.eventDescription,
+      title: state.eventTitle.trim(),
+      description: state.eventDescription.trim(),
       status: state.eventStatus,
-      date: state.timeFrom,
+      date: state.eventDate,
       timeFrom: state.timeFrom,
       timeTo: state.timeTo,
     );
     await IsarService()
         .addEvent(newEvent)
         .then((value) => emit(state.copyWith(dbStatus: DbStatus.added)));
-  }
-
-  void updateStates() {
-    allEventsCubit.getAllEvents();
-    homePageCubit.getHomeEvents();
   }
 }

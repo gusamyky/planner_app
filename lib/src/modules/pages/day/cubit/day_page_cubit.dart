@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
@@ -28,5 +30,11 @@ class DayPageCubit extends Cubit<DayPageState> {
     );
 
     emit(state.copyWith(dayEvents: filteredEvents, dbStatus: DbStatus.loaded));
+    log('day events');
+  }
+
+  Future<void> deleteEvent(Event event) async {
+    await isarService.deleteEvent(event);
+    getDayEvents();
   }
 }
