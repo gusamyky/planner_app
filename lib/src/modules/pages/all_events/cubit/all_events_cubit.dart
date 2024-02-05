@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
@@ -21,13 +19,10 @@ class AllEventsCubit extends Cubit<AllEventsState> {
       );
       emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
     });
-    log('all events');
   }
 
   Future<void> deleteEvent(Event event) async {
-    log("enter to delete cubit");
     await isarService.deleteEvent(event);
-    log("deleted cubit");
     getAllEvents();
   }
 }

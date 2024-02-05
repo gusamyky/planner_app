@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
@@ -23,7 +21,6 @@ class MonthPageCubit extends Cubit<MonthPageState> {
         .toList();
 
     emit(state.copyWith(allEvents: filteredEvents, dbStatus: DbStatus.loaded));
-    log('month events');
   }
 
   Future<void> deleteEvent(Event event) async {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
@@ -31,8 +29,6 @@ class HomePageCubit extends Cubit<HomePageState> {
 
     emit(state.copyWith(
         homePageEvents: filteredEvents, dbStatus: DbStatus.loaded));
-
-    log('home events');
   }
 
   Future<void> deleteEvent(Event event) async {
