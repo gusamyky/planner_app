@@ -1,7 +1,10 @@
 {
   "all_events": "Wszystkie eventy",
+  "cancel": "Powrót",
   "create": "Utwórz",
   "create_event": "Utwórz event",
+  "delete": "Usuń",
+  "delete_confirm": "Czy na pewno chcesz usunąć event?",
   "description": "Opis",
   "done": "Zrobione",
   "edit": "Edytuj",
@@ -9,8 +12,10 @@
   "home": "Główna",
   "in_progress": "Procesowane",
   "month": "Miesiąc",
+  "not_found": "Nie znaleziono.",
   "story": "Archiwowane",
   "title": "Tytuł",
   "to_do": "Do zrobienia",
-  "today": "Dzisiaj"
+  "today": "Dzisiaj",
+  "you_have_no_events": "Jeszcze nie masz zadnych planów."
 }

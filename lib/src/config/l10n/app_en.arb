@@ -1,7 +1,10 @@
 {
   "all_events": "All events",
+  "cancel": "Cancel",
   "create": "Create",
   "create_event": "Create event",
+  "delete": "Delete",
+  "delete_confirm": "Are you sure you want to delete event?",
   "description": "Description",
   "done": "Done",
   "edit": "Edit",
@@ -9,8 +12,10 @@
   "home": "Home",
   "in_progress": "In progress",
   "month": "Month",
+  "not_found": "Not found.",
   "story": "Story",
   "title": "Title",
   "to_do": "To do",
-  "today": "Today"
+  "today": "Today",
+  "you_have_no_events": "You have no events yet."
 }

@@ -6,6 +6,7 @@ import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/app_icons.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
+import 'package:planner_app/src/modules/cubits/cubit/main_cubit.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
 import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
@@ -32,7 +33,9 @@ class CustomScaffold extends StatelessWidget {
             ? null
             : [
                 InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context.read<MainCubit>().toggleSearchStatus();
+                    },
                     child: const CircleAvatar(
                         backgroundColor: AppColors.gray,
                         child: AppIcon(icon: AppIcons.search))),
