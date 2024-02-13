@@ -10,6 +10,7 @@ import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.
 import 'package:planner_app/src/modules/widgets/event_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:planner_app/src/widgets/custom_scaffold.dart';
+import 'package:planner_app/src/widgets/search_bar.dart';
 
 final now = DateTime.now();
 
@@ -44,12 +45,12 @@ class AllEventsPage extends StatelessWidget {
                 body: Column(
                   children: [
                     if (context.read<MainCubit>().state.isSearchActive) ...[
-                      SearchBar(
+                      SearchField(
                         onChanged: (value) =>
                             context.read<AllEventsCubit>().search(value),
                       )
                     ],
-                    const SizedBox(height: Constants.padding10),
+                    const SizedBox(height: Constants.padding20),
                     _AllEventsList(eventList: currentList),
                   ],
                 ),
@@ -78,7 +79,11 @@ class _AllEventsList extends StatelessWidget {
           );
         } else if (state.allEvents.isNotEmpty) {
           if (state.dbStatus == DbStatus.notFound) {
-            return Center(child: Text(AppLocalizations.of(context)!.not_found));
+            return Center(
+                child: Text(
+              AppLocalizations.of(context)!.not_found,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ));
           }
           return Expanded(
             child: ListView.builder(
@@ -108,7 +113,10 @@ class _AllEventsList extends StatelessWidget {
           );
         } else {
           return Center(
-            child: Text(AppLocalizations.of(context)!.you_have_no_events),
+            child: Text(
+              AppLocalizations.of(context)!.you_have_no_events,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           );
         }
       },

@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:planner_app/src/core/utils/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({required this.hintText, this.onChanged, super.key});
+class SearchField extends StatefulWidget {
+  const SearchField({this.hintText, this.onChanged, super.key});
 
-  final String hintText;
+  final String? hintText;
   final void Function(String)? onChanged;
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<SearchField> createState() => _SearchFieldState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchFieldState extends State<SearchField> {
   static TextEditingController searchController = TextEditingController();
   Timer? _debounce;
 
@@ -27,26 +27,24 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void dispose() {
     _debounce?.cancel();
+    searchController.clear();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Constants.appPadding),
-      child: TextField(
-        controller: searchController,
-        onChanged: _onSearchChanged,
-        onTapOutside: (event) {
-          final currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        decoration: InputDecoration(
-          hintText: widget.hintText,
-          suffixIcon: const Icon(Icons.search),
-        ),
+    return TextField(
+      controller: searchController,
+      onChanged: _onSearchChanged,
+      onTapOutside: (event) {
+        final currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      decoration: InputDecoration(
+        hintText: widget.hintText ?? AppLocalizations.of(context)!.search_hint,
+        suffixIcon: const Icon(Icons.search),
       ),
     );
   }

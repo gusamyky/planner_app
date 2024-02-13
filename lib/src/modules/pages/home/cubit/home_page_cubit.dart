@@ -15,10 +15,9 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   Future<void> getHomeEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
-    DateTime beforeMonday;
     final today = DateTime.now();
     final startOfWeek = today.subtract(Duration(days: today.weekday - 1));
-    final endOfWeek = startOfWeek.add(Duration(days: 6));
+    final endOfWeek = startOfWeek.add(const Duration(days: 6));
 
     List<Event> filteredEvents = [];
     final allEvents = await isarService.fetchEvents();
@@ -59,6 +58,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> deleteEvent(Event event) async {
+    log('delete');
     await isarService.deleteEvent(event);
     getHomeEvents();
   }
