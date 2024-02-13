@@ -17,21 +17,27 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomePageState {
   List<Event> get homePageEvents => throw _privateConstructorUsedError;
+  List<Event> get foundEvents => throw _privateConstructorUsedError;
   DbStatus get dbStatus => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Event> homePageEvents, DbStatus dbStatus)
+    required TResult Function(List<Event> homePageEvents,
+            List<Event> foundEvents, DbStatus dbStatus)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Event> homePageEvents, DbStatus dbStatus)? initial,
+    TResult? Function(List<Event> homePageEvents, List<Event> foundEvents,
+            DbStatus dbStatus)?
+        initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Event> homePageEvents, DbStatus dbStatus)? initial,
+    TResult Function(List<Event> homePageEvents, List<Event> foundEvents,
+            DbStatus dbStatus)?
+        initial,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +69,8 @@ abstract class $HomePageStateCopyWith<$Res> {
           HomePageState value, $Res Function(HomePageState) then) =
       _$HomePageStateCopyWithImpl<$Res, HomePageState>;
   @useResult
-  $Res call({List<Event> homePageEvents, DbStatus dbStatus});
+  $Res call(
+      {List<Event> homePageEvents, List<Event> foundEvents, DbStatus dbStatus});
 }
 
 /// @nodoc
@@ -80,12 +87,17 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
   @override
   $Res call({
     Object? homePageEvents = null,
+    Object? foundEvents = null,
     Object? dbStatus = null,
   }) {
     return _then(_value.copyWith(
       homePageEvents: null == homePageEvents
           ? _value.homePageEvents
           : homePageEvents // ignore: cast_nullable_to_non_nullable
+              as List<Event>,
+      foundEvents: null == foundEvents
+          ? _value.foundEvents
+          : foundEvents // ignore: cast_nullable_to_non_nullable
               as List<Event>,
       dbStatus: null == dbStatus
           ? _value.dbStatus
@@ -103,7 +115,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Event> homePageEvents, DbStatus dbStatus});
+  $Res call(
+      {List<Event> homePageEvents, List<Event> foundEvents, DbStatus dbStatus});
 }
 
 /// @nodoc
@@ -118,12 +131,17 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? homePageEvents = null,
+    Object? foundEvents = null,
     Object? dbStatus = null,
   }) {
     return _then(_$InitialImpl(
       homePageEvents: null == homePageEvents
           ? _value._homePageEvents
           : homePageEvents // ignore: cast_nullable_to_non_nullable
+              as List<Event>,
+      foundEvents: null == foundEvents
+          ? _value._foundEvents
+          : foundEvents // ignore: cast_nullable_to_non_nullable
               as List<Event>,
       dbStatus: null == dbStatus
           ? _value.dbStatus
@@ -138,8 +156,10 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {final List<Event> homePageEvents = const [],
+      final List<Event> foundEvents = const [],
       this.dbStatus = DbStatus.init})
-      : _homePageEvents = homePageEvents;
+      : _homePageEvents = homePageEvents,
+        _foundEvents = foundEvents;
 
   final List<Event> _homePageEvents;
   @override
@@ -150,13 +170,22 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(_homePageEvents);
   }
 
+  final List<Event> _foundEvents;
+  @override
+  @JsonKey()
+  List<Event> get foundEvents {
+    if (_foundEvents is EqualUnmodifiableListView) return _foundEvents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_foundEvents);
+  }
+
   @override
   @JsonKey()
   final DbStatus dbStatus;
 
   @override
   String toString() {
-    return 'HomePageState.initial(homePageEvents: $homePageEvents, dbStatus: $dbStatus)';
+    return 'HomePageState.initial(homePageEvents: $homePageEvents, foundEvents: $foundEvents, dbStatus: $dbStatus)';
   }
 
   @override
@@ -166,13 +195,18 @@ class _$InitialImpl implements _Initial {
             other is _$InitialImpl &&
             const DeepCollectionEquality()
                 .equals(other._homePageEvents, _homePageEvents) &&
+            const DeepCollectionEquality()
+                .equals(other._foundEvents, _foundEvents) &&
             (identical(other.dbStatus, dbStatus) ||
                 other.dbStatus == dbStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_homePageEvents), dbStatus);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_homePageEvents),
+      const DeepCollectionEquality().hash(_foundEvents),
+      dbStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -183,28 +217,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Event> homePageEvents, DbStatus dbStatus)
+    required TResult Function(List<Event> homePageEvents,
+            List<Event> foundEvents, DbStatus dbStatus)
         initial,
   }) {
-    return initial(homePageEvents, dbStatus);
+    return initial(homePageEvents, foundEvents, dbStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Event> homePageEvents, DbStatus dbStatus)? initial,
+    TResult? Function(List<Event> homePageEvents, List<Event> foundEvents,
+            DbStatus dbStatus)?
+        initial,
   }) {
-    return initial?.call(homePageEvents, dbStatus);
+    return initial?.call(homePageEvents, foundEvents, dbStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Event> homePageEvents, DbStatus dbStatus)? initial,
+    TResult Function(List<Event> homePageEvents, List<Event> foundEvents,
+            DbStatus dbStatus)?
+        initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(homePageEvents, dbStatus);
+      return initial(homePageEvents, foundEvents, dbStatus);
     }
     return orElse();
   }
@@ -241,10 +280,13 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements HomePageState {
   const factory _Initial(
       {final List<Event> homePageEvents,
+      final List<Event> foundEvents,
       final DbStatus dbStatus}) = _$InitialImpl;
 
   @override
   List<Event> get homePageEvents;
+  @override
+  List<Event> get foundEvents;
   @override
   DbStatus get dbStatus;
   @override

@@ -17,5 +17,8 @@
   "title": "Tytuł",
   "to_do": "Do zrobienia",
   "today": "Dzisiaj",
-  "you_have_no_events": "Jeszcze nie masz zadnych planów."
+  "you_have_no_events": "Jeszcze nie masz żadnych planów.",
+  "you_have_no_events_month": "Nie masz żadnych planów w tym miesiącu.",
+  "you_have_no_events_today": "Nie masz żadnych planów na dziś.",
+  "you_have_no_events_week": "Nie masz żadnych planów w tym tygodniu.."
 }

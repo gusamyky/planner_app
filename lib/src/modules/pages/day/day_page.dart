@@ -97,7 +97,7 @@ class _DayPageList extends StatelessWidget {
           );
         } else {
           return Center(
-            child: Text(AppLocalizations.of(context)!.you_have_no_events),
+            child: Text(AppLocalizations.of(context)!.you_have_no_events_today),
           );
         }
       },
