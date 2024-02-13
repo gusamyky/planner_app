@@ -44,12 +44,14 @@ class EventTile extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  backgroundColor: Palette.tileColor,
+                  surfaceTintColor: Palette.tileColor,
                   content: Text(AppLocalizations.of(context)!.delete_confirm),
                   actions: <Widget>[
                     TextButton(
                       child: Text(
                         AppLocalizations.of(context)!.cancel,
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Palette.selected),
                       ),
                       onPressed: () {
                         context.router.pop<bool>(false);
