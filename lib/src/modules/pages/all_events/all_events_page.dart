@@ -63,7 +63,7 @@ class AllEventsPage extends StatelessWidget {
 }
 
 class _AllEventsList extends StatelessWidget {
-  const _AllEventsList({required this.eventList, super.key});
+  const _AllEventsList({required this.eventList});
 
   final List<Event> eventList;
 

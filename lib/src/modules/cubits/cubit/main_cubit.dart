@@ -31,6 +31,18 @@ class MainCubit extends Cubit<MainState> {
     });
   }
 
+  Future<void> getMonthEvents() async {
+    emit(state.copyWith(dbStatus: DbStatus.loading));
+    List<Event> filteredEvents = [];
+    final allEvents = await isar.fetchEvents();
+
+    filteredEvents = allEvents
+        .where((event) => event.date!.month == DateTime.now().month)
+        .toList();
+
+    emit(state.copyWith(allEvents: filteredEvents, dbStatus: DbStatus.loaded));
+  }
+
   void search(String text) {
     emit(state.copyWith(dbStatus: DbStatus.searching));
     log(text);
