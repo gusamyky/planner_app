@@ -24,14 +24,14 @@ class CreateEditEventPage extends StatelessWidget {
     this.allEventsCubit,
     this.event,
     this.homePageCubit,
-    this.dayPageCubit,
+    this.weekPageCubit,
     this.monthPageCubit,
     super.key,
   });
   final Event? event;
   final AllEventsCubit? allEventsCubit;
   final HomePageCubit? homePageCubit;
-  final WeekPageCubit? dayPageCubit;
+  final WeekPageCubit? weekPageCubit;
   final MonthPageCubit? monthPageCubit;
 
   @override
@@ -49,8 +49,8 @@ class CreateEditEventPage extends StatelessWidget {
               homePageCubit!.getHomeEvents().then(
                     (value) => context.router.pop(),
                   );
-            } else if (dayPageCubit != null) {
-              dayPageCubit!.getWeekEvents().then(
+            } else if (weekPageCubit != null) {
+              weekPageCubit!.getWeekEvents().then(
                     (value) => context.router.pop(),
                   );
             } else if (monthPageCubit != null) {
@@ -61,7 +61,7 @@ class CreateEditEventPage extends StatelessWidget {
           } else if (state.dbStatus == DbStatus.added) {
             allEventsCubit!.getAllEvents();
             homePageCubit!.getHomeEvents();
-            dayPageCubit!.getWeekEvents();
+            weekPageCubit!.getWeekEvents();
             monthPageCubit!.getMonthEvents();
             context.router.pop();
           }

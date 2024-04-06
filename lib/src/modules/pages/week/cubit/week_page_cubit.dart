@@ -13,25 +13,6 @@ class WeekPageCubit extends Cubit<WeekPageState> {
 
   final isarService = IsarService();
 
-  // Future<void> getDayEvents() async {
-  //   emit(state.copyWith(dbStatus: DbStatus.loading));
-  //   final today = DateTime.now().subtract(const Duration(days: 1));
-  //   final endDate = DateTime.now();
-  //   List<Event> filteredEvents = [];
-  //   final allEvents = await isarService.fetchEvents();
-
-  //   filteredEvents = allEvents
-  //       .where((element) =>
-  //           element.date!.isAfter(today) && element.date!.isBefore(endDate))
-  //       .toList();
-
-  //   filteredEvents.sort(
-  //     (a, b) => a.date!.compareTo(b.date!),
-  //   );
-
-  //   emit(state.copyWith(dayEvents: filteredEvents, dbStatus: DbStatus.loaded));
-  // }
-
   Future<void> getWeekEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
     final today = DateTime.now();
