@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'month_page_cubit.dart';
+part of 'main_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,28 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$MonthPageState {
+mixin _$MainState {
+  bool get isSearchActive => throw _privateConstructorUsedError;
   List<Event> get allEvents => throw _privateConstructorUsedError;
   List<Event> get foundEvents => throw _privateConstructorUsedError;
   DbStatus get dbStatus => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus)
+    required TResult Function(bool isSearchActive, List<Event> allEvents,
+            List<Event> foundEvents, DbStatus dbStatus)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus)?
+    TResult? Function(bool isSearchActive, List<Event> allEvents,
+            List<Event> foundEvents, DbStatus dbStatus)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus)?
+    TResult Function(bool isSearchActive, List<Event> allEvents,
+            List<Event> foundEvents, DbStatus dbStatus)?
         initial,
     required TResult orElse(),
   }) =>
@@ -59,24 +60,26 @@ mixin _$MonthPageState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $MonthPageStateCopyWith<MonthPageState> get copyWith =>
+  $MainStateCopyWith<MainState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MonthPageStateCopyWith<$Res> {
-  factory $MonthPageStateCopyWith(
-          MonthPageState value, $Res Function(MonthPageState) then) =
-      _$MonthPageStateCopyWithImpl<$Res, MonthPageState>;
+abstract class $MainStateCopyWith<$Res> {
+  factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
+      _$MainStateCopyWithImpl<$Res, MainState>;
   @useResult
   $Res call(
-      {List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus});
+      {bool isSearchActive,
+      List<Event> allEvents,
+      List<Event> foundEvents,
+      DbStatus dbStatus});
 }
 
 /// @nodoc
-class _$MonthPageStateCopyWithImpl<$Res, $Val extends MonthPageState>
-    implements $MonthPageStateCopyWith<$Res> {
-  _$MonthPageStateCopyWithImpl(this._value, this._then);
+class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
+    implements $MainStateCopyWith<$Res> {
+  _$MainStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -86,11 +89,16 @@ class _$MonthPageStateCopyWithImpl<$Res, $Val extends MonthPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isSearchActive = null,
     Object? allEvents = null,
     Object? foundEvents = null,
     Object? dbStatus = null,
   }) {
     return _then(_value.copyWith(
+      isSearchActive: null == isSearchActive
+          ? _value.isSearchActive
+          : isSearchActive // ignore: cast_nullable_to_non_nullable
+              as bool,
       allEvents: null == allEvents
           ? _value.allEvents
           : allEvents // ignore: cast_nullable_to_non_nullable
@@ -109,19 +117,22 @@ class _$MonthPageStateCopyWithImpl<$Res, $Val extends MonthPageState>
 
 /// @nodoc
 abstract class _$$InitialImplCopyWith<$Res>
-    implements $MonthPageStateCopyWith<$Res> {
+    implements $MainStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus});
+      {bool isSearchActive,
+      List<Event> allEvents,
+      List<Event> foundEvents,
+      DbStatus dbStatus});
 }
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$MonthPageStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$MainStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -130,11 +141,16 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isSearchActive = null,
     Object? allEvents = null,
     Object? foundEvents = null,
     Object? dbStatus = null,
   }) {
     return _then(_$InitialImpl(
+      isSearchActive: null == isSearchActive
+          ? _value.isSearchActive
+          : isSearchActive // ignore: cast_nullable_to_non_nullable
+              as bool,
       allEvents: null == allEvents
           ? _value._allEvents
           : allEvents // ignore: cast_nullable_to_non_nullable
@@ -155,12 +171,16 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<Event> allEvents = const [],
+      {this.isSearchActive = false,
+      final List<Event> allEvents = const [],
       final List<Event> foundEvents = const [],
       this.dbStatus = DbStatus.init})
       : _allEvents = allEvents,
         _foundEvents = foundEvents;
 
+  @override
+  @JsonKey()
+  final bool isSearchActive;
   final List<Event> _allEvents;
   @override
   @JsonKey()
@@ -185,7 +205,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'MonthPageState.initial(allEvents: $allEvents, foundEvents: $foundEvents, dbStatus: $dbStatus)';
+    return 'MainState.initial(isSearchActive: $isSearchActive, allEvents: $allEvents, foundEvents: $foundEvents, dbStatus: $dbStatus)';
   }
 
   @override
@@ -193,6 +213,8 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.isSearchActive, isSearchActive) ||
+                other.isSearchActive == isSearchActive) &&
             const DeepCollectionEquality()
                 .equals(other._allEvents, _allEvents) &&
             const DeepCollectionEquality()
@@ -204,6 +226,7 @@ class _$InitialImpl implements _Initial {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      isSearchActive,
       const DeepCollectionEquality().hash(_allEvents),
       const DeepCollectionEquality().hash(_foundEvents),
       dbStatus);
@@ -217,33 +240,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus)
+    required TResult Function(bool isSearchActive, List<Event> allEvents,
+            List<Event> foundEvents, DbStatus dbStatus)
         initial,
   }) {
-    return initial(allEvents, foundEvents, dbStatus);
+    return initial(isSearchActive, allEvents, foundEvents, dbStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus)?
+    TResult? Function(bool isSearchActive, List<Event> allEvents,
+            List<Event> foundEvents, DbStatus dbStatus)?
         initial,
   }) {
-    return initial?.call(allEvents, foundEvents, dbStatus);
+    return initial?.call(isSearchActive, allEvents, foundEvents, dbStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Event> allEvents, List<Event> foundEvents, DbStatus dbStatus)?
+    TResult Function(bool isSearchActive, List<Event> allEvents,
+            List<Event> foundEvents, DbStatus dbStatus)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(allEvents, foundEvents, dbStatus);
+      return initial(isSearchActive, allEvents, foundEvents, dbStatus);
     }
     return orElse();
   }
@@ -277,12 +300,15 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements MonthPageState {
+abstract class _Initial implements MainState {
   const factory _Initial(
-      {final List<Event> allEvents,
+      {final bool isSearchActive,
+      final List<Event> allEvents,
       final List<Event> foundEvents,
       final DbStatus dbStatus}) = _$InitialImpl;
 
+  @override
+  bool get isSearchActive;
   @override
   List<Event> get allEvents;
   @override

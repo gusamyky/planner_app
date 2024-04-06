@@ -11,6 +11,7 @@ import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.
 import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventTile extends StatelessWidget {
   const EventTile({
@@ -33,8 +34,8 @@ class EventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      background: slideRightBackground(),
-      secondaryBackground: slideLeftBackground(),
+      background: slideRightBackground(context),
+      secondaryBackground: slideLeftBackground(context),
       key: Key(event.toString()),
       confirmDismiss: (direction) async {
         bool? res;
@@ -43,21 +44,23 @@ class EventTile extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  content: const Text("Are you sure you want to delete event?"),
+                  backgroundColor: Palette.tileColor,
+                  surfaceTintColor: Palette.tileColor,
+                  content: Text(AppLocalizations.of(context)!.delete_confirm),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text(
-                        "Cancel",
-                        style: TextStyle(color: Colors.black),
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
+                        style: const TextStyle(color: Palette.selected),
                       ),
                       onPressed: () {
                         context.router.pop<bool>(false);
                       },
                     ),
                     TextButton(
-                      child: const Text(
-                        "Delete",
-                        style: TextStyle(color: Colors.red),
+                      child: Text(
+                        AppLocalizations.of(context)!.delete,
+                        style: const TextStyle(color: Colors.red),
                       ),
                       onPressed: () {
                         context.router.pop<bool>(true);
@@ -133,24 +136,24 @@ class EventTile extends StatelessWidget {
   }
 }
 
-Widget slideRightBackground() {
+Widget slideRightBackground(BuildContext context) {
   return Container(
     color: Colors.green,
-    child: const Align(
+    child: Align(
       alignment: Alignment.centerLeft,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
-          Icon(
+          const Icon(
             Icons.edit,
             color: Colors.white,
           ),
           Text(
-            " Edit",
-            style: TextStyle(
+            AppLocalizations.of(context)!.edit,
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -162,62 +165,31 @@ Widget slideRightBackground() {
   );
 }
 
-Widget slideLeftBackground() {
+Widget slideLeftBackground(BuildContext context) {
   return Container(
     color: Colors.red,
-    child: const Align(
+    child: Align(
       alignment: Alignment.centerRight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Icon(
+          const Icon(
             Icons.delete,
             color: Colors.white,
           ),
           Text(
-            " Delete",
-            style: TextStyle(
+            AppLocalizations.of(context)!.delete,
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
             textAlign: TextAlign.right,
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
         ],
       ),
     ),
   );
-}
-
-Future<bool> confirmDismiss(dynamic direction, BuildContext context) async {
-  final bool res = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: const Text("Are you sure you want to delete event?"),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                "Cancel",
-                style: TextStyle(color: Colors.black),
-              ),
-              onPressed: () {
-                context.router.pop();
-              },
-            ),
-            TextButton(
-              child: const Text(
-                "Delete",
-                style: TextStyle(color: Colors.red),
-              ),
-              onPressed: () {
-                context.router.pop();
-              },
-            ),
-          ],
-        );
-      });
-  return res;
 }

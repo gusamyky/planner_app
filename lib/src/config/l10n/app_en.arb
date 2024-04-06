@@ -1,7 +1,10 @@
 {
   "all_events": "All events",
+  "cancel": "Cancel",
   "create": "Create",
   "create_event": "Create event",
+  "delete": "Delete",
+  "delete_confirm": "Are you sure you want to delete event?",
   "description": "Description",
   "done": "Done",
   "edit": "Edit",
@@ -9,8 +12,14 @@
   "home": "Home",
   "in_progress": "In progress",
   "month": "Month",
+  "not_found": "Not found.",
+  "search_hint": "Search by title or description.",
   "story": "Story",
   "title": "Title",
   "to_do": "To do",
-  "today": "Today"
+  "today": "Today",
+  "you_have_no_events": "You have no events yet.",
+  "you_have_no_events_month": "You have no events in that month.",
+  "you_have_no_events_today": "You have no events today.",
+  "you_have_no_events_week": "You have no events in that week."
 }

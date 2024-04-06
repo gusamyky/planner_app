@@ -12,25 +12,32 @@ part of 'all_events_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AllEventsState {
   List<Event> get allEvents => throw _privateConstructorUsedError;
   DbStatus get dbStatus => throw _privateConstructorUsedError;
+  List<Event> get foundEvents => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Event> allEvents, DbStatus dbStatus) initial,
+    required TResult Function(
+            List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents)
+        initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Event> allEvents, DbStatus dbStatus)? initial,
+    TResult? Function(
+            List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents)?
+        initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Event> allEvents, DbStatus dbStatus)? initial,
+    TResult Function(
+            List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents)?
+        initial,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,7 +69,8 @@ abstract class $AllEventsStateCopyWith<$Res> {
           AllEventsState value, $Res Function(AllEventsState) then) =
       _$AllEventsStateCopyWithImpl<$Res, AllEventsState>;
   @useResult
-  $Res call({List<Event> allEvents, DbStatus dbStatus});
+  $Res call(
+      {List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents});
 }
 
 /// @nodoc
@@ -80,6 +88,7 @@ class _$AllEventsStateCopyWithImpl<$Res, $Val extends AllEventsState>
   $Res call({
     Object? allEvents = null,
     Object? dbStatus = null,
+    Object? foundEvents = null,
   }) {
     return _then(_value.copyWith(
       allEvents: null == allEvents
@@ -90,6 +99,10 @@ class _$AllEventsStateCopyWithImpl<$Res, $Val extends AllEventsState>
           ? _value.dbStatus
           : dbStatus // ignore: cast_nullable_to_non_nullable
               as DbStatus,
+      foundEvents: null == foundEvents
+          ? _value.foundEvents
+          : foundEvents // ignore: cast_nullable_to_non_nullable
+              as List<Event>,
     ) as $Val);
   }
 }
@@ -102,7 +115,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Event> allEvents, DbStatus dbStatus});
+  $Res call(
+      {List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents});
 }
 
 /// @nodoc
@@ -118,6 +132,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? allEvents = null,
     Object? dbStatus = null,
+    Object? foundEvents = null,
   }) {
     return _then(_$InitialImpl(
       allEvents: null == allEvents
@@ -128,6 +143,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.dbStatus
           : dbStatus // ignore: cast_nullable_to_non_nullable
               as DbStatus,
+      foundEvents: null == foundEvents
+          ? _value._foundEvents
+          : foundEvents // ignore: cast_nullable_to_non_nullable
+              as List<Event>,
     ));
   }
 }
@@ -136,8 +155,11 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<Event> allEvents = const [], this.dbStatus = DbStatus.init})
-      : _allEvents = allEvents;
+      {final List<Event> allEvents = const [],
+      this.dbStatus = DbStatus.init,
+      final List<Event> foundEvents = const []})
+      : _allEvents = allEvents,
+        _foundEvents = foundEvents;
 
   final List<Event> _allEvents;
   @override
@@ -151,10 +173,18 @@ class _$InitialImpl implements _Initial {
   @override
   @JsonKey()
   final DbStatus dbStatus;
+  final List<Event> _foundEvents;
+  @override
+  @JsonKey()
+  List<Event> get foundEvents {
+    if (_foundEvents is EqualUnmodifiableListView) return _foundEvents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_foundEvents);
+  }
 
   @override
   String toString() {
-    return 'AllEventsState.initial(allEvents: $allEvents, dbStatus: $dbStatus)';
+    return 'AllEventsState.initial(allEvents: $allEvents, dbStatus: $dbStatus, foundEvents: $foundEvents)';
   }
 
   @override
@@ -165,12 +195,17 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._allEvents, _allEvents) &&
             (identical(other.dbStatus, dbStatus) ||
-                other.dbStatus == dbStatus));
+                other.dbStatus == dbStatus) &&
+            const DeepCollectionEquality()
+                .equals(other._foundEvents, _foundEvents));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_allEvents), dbStatus);
+      runtimeType,
+      const DeepCollectionEquality().hash(_allEvents),
+      dbStatus,
+      const DeepCollectionEquality().hash(_foundEvents));
 
   @JsonKey(ignore: true)
   @override
@@ -181,27 +216,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Event> allEvents, DbStatus dbStatus) initial,
+    required TResult Function(
+            List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents)
+        initial,
   }) {
-    return initial(allEvents, dbStatus);
+    return initial(allEvents, dbStatus, foundEvents);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Event> allEvents, DbStatus dbStatus)? initial,
+    TResult? Function(
+            List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents)?
+        initial,
   }) {
-    return initial?.call(allEvents, dbStatus);
+    return initial?.call(allEvents, dbStatus, foundEvents);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Event> allEvents, DbStatus dbStatus)? initial,
+    TResult Function(
+            List<Event> allEvents, DbStatus dbStatus, List<Event> foundEvents)?
+        initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(allEvents, dbStatus);
+      return initial(allEvents, dbStatus, foundEvents);
     }
     return orElse();
   }
@@ -237,12 +278,16 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements AllEventsState {
   const factory _Initial(
-      {final List<Event> allEvents, final DbStatus dbStatus}) = _$InitialImpl;
+      {final List<Event> allEvents,
+      final DbStatus dbStatus,
+      final List<Event> foundEvents}) = _$InitialImpl;
 
   @override
   List<Event> get allEvents;
   @override
   DbStatus get dbStatus;
+  @override
+  List<Event> get foundEvents;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

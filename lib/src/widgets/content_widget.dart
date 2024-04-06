@@ -58,30 +58,38 @@ class ContentWidget extends StatelessWidget {
         bottom: withSafeArea,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: body ??
-              LayoutBuilder(
-                builder: (_, constraints) => SingleChildScrollView(
-                  physics: physics,
+          child: body != null
+              ? Padding(
                   padding: EdgeInsets.only(
                     top: Constants.appPadding,
                     left: withPadding ? Constants.appPadding : 0,
                     right: withPadding ? Constants.appPadding : 0,
                   ),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                      minWidth: constraints.maxWidth,
+                  child: body,
+                )
+              : LayoutBuilder(
+                  builder: (_, constraints) => SingleChildScrollView(
+                    physics: physics,
+                    padding: EdgeInsets.only(
+                      top: Constants.appPadding,
+                      left: withPadding ? Constants.appPadding : 0,
+                      right: withPadding ? Constants.appPadding : 0,
                     ),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        mainAxisAlignment: mainAxisAlignment,
-                        crossAxisAlignment: crossAxisAlignment,
-                        children: children ?? <Widget>[],
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                        minWidth: constraints.maxWidth,
+                      ),
+                      child: IntrinsicHeight(
+                        child: Column(
+                          mainAxisAlignment: mainAxisAlignment,
+                          crossAxisAlignment: crossAxisAlignment,
+                          children: children ?? <Widget>[],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
         ),
       ),
     );

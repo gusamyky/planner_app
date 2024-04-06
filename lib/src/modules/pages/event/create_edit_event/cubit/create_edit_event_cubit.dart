@@ -41,7 +41,10 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
   void onDescriptionChanged(String description) =>
       emit(state.copyWith(eventDescription: description));
 
-  void onDateChanged(DateTime date) => emit(state.copyWith(eventDate: date));
+  void onDateChanged(DateTime date) {
+    // final eventDate = DateTime(date.year, date.month, date.day, 0, 0, 0, 0, 0);
+    emit(state.copyWith(eventDate: date));
+  }
 
   void onTimeChanged(DateTime start, DateTime end) {
     final startTime = DateTime(state.eventDate.year, state.eventDate.month,

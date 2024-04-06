@@ -12,6 +12,9 @@ enum DbStatus {
   deleted,
   editing,
   edited,
+  searching,
+  found,
+  notFound,
   error
 }
 

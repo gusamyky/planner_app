@@ -5,29 +5,42 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
-part 'month_page_state.dart';
-part 'month_page_cubit.freezed.dart';
+part 'main_state.dart';
+part 'main_cubit.freezed.dart';
 
-class MonthPageCubit extends Cubit<MonthPageState> {
-  MonthPageCubit() : super(const MonthPageState.initial());
+class MainCubit extends Cubit<MainState> {
+  MainCubit() : super(const MainState.initial());
 
-  final isarService = IsarService();
+  final isar = IsarService();
+
+  void toggleSearchStatus() {
+    emit(state.copyWith(
+      isSearchActive: !state.isSearchActive,
+    ));
+
+    getAllEvents();
+  }
+
+  Future<void> getAllEvents() async {
+    emit(state.copyWith(dbStatus: DbStatus.loading));
+    await isar.fetchEvents().then((allEvents) {
+      allEvents.sort(
+        (a, b) => a.timeFrom!.compareTo(b.timeFrom!),
+      );
+      emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
+    });
+  }
 
   Future<void> getMonthEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
     List<Event> filteredEvents = [];
-    final allEvents = await isarService.fetchEvents();
+    final allEvents = await isar.fetchEvents();
 
     filteredEvents = allEvents
         .where((event) => event.date!.month == DateTime.now().month)
         .toList();
 
     emit(state.copyWith(allEvents: filteredEvents, dbStatus: DbStatus.loaded));
-  }
-
-  Future<void> deleteEvent(Event event) async {
-    await isarService.deleteEvent(event);
-    getMonthEvents();
   }
 
   void search(String text) {
