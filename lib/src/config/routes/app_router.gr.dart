@@ -36,12 +36,6 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    DayRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const DayPage(),
-      );
-    },
     EventRoute.name: (routeData) {
       final args = routeData.argsAs<EventRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -70,6 +64,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MonthPage(),
       );
     },
+    WeekRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const WeekPage(),
+      );
+    },
   };
 }
 
@@ -94,7 +94,7 @@ class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
     AllEventsCubit? allEventsCubit,
     Event? event,
     HomePageCubit? homePageCubit,
-    DayPageCubit? dayPageCubit,
+    WeekPageCubit? weekPageCubit,
     MonthPageCubit? monthPageCubit,
     Key? key,
     List<PageRouteInfo>? children,
@@ -104,7 +104,7 @@ class CreateEditEventRoute extends PageRouteInfo<CreateEditEventRouteArgs> {
             allEventsCubit: allEventsCubit,
             event: event,
             homePageCubit: homePageCubit,
-            dayPageCubit: dayPageCubit,
+            dayPageCubit: weekPageCubit,
             monthPageCubit: monthPageCubit,
             key: key,
           ),
@@ -133,7 +133,7 @@ class CreateEditEventRouteArgs {
 
   final HomePageCubit? homePageCubit;
 
-  final DayPageCubit? dayPageCubit;
+  final WeekPageCubit? dayPageCubit;
 
   final MonthPageCubit? monthPageCubit;
 
@@ -143,20 +143,6 @@ class CreateEditEventRouteArgs {
   String toString() {
     return 'CreateEditEventRouteArgs{allEventsCubit: $allEventsCubit, event: $event, homePageCubit: $homePageCubit, dayPageCubit: $dayPageCubit, monthPageCubit: $monthPageCubit, key: $key}';
   }
-}
-
-/// generated route for
-/// [DayPage]
-class DayRoute extends PageRouteInfo<void> {
-  const DayRoute({List<PageRouteInfo>? children})
-      : super(
-          DayRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DayRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -234,6 +220,20 @@ class MonthRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MonthRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WeekPage]
+class WeekRoute extends PageRouteInfo<void> {
+  const WeekRoute({List<PageRouteInfo>? children})
+      : super(
+          WeekRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WeekRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

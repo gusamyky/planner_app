@@ -8,7 +8,7 @@ import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
-import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,7 +28,7 @@ class EventTile extends StatelessWidget {
   final void Function() onDismissed;
   final AllEventsCubit? allEventsCubit;
   final MonthPageCubit? monthPageCubit;
-  final DayPageCubit? dayPageCubit;
+  final WeekPageCubit? dayPageCubit;
   final HomePageCubit? homePageCubit;
 
   @override
@@ -73,7 +73,7 @@ class EventTile extends StatelessWidget {
           context.router.navigate(CreateEditEventRoute(
             event: event,
             allEventsCubit: allEventsCubit,
-            dayPageCubit: dayPageCubit,
+            weekPageCubit: dayPageCubit,
             homePageCubit: homePageCubit,
             monthPageCubit: monthPageCubit,
           ));

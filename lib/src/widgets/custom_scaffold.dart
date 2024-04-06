@@ -8,7 +8,7 @@ import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/modules/cubits/cubit/main_cubit.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
-import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
 
@@ -47,7 +47,7 @@ class CustomScaffold extends StatelessWidget {
                         context.router.push(CreateEditEventRoute(
                           allEventsCubit: context.read<AllEventsCubit>(),
                           homePageCubit: context.read<HomePageCubit>(),
-                          dayPageCubit: context.read<DayPageCubit>(),
+                          weekPageCubit: context.read<WeekPageCubit>(),
                           monthPageCubit: context.read<MonthPageCubit>(),
                         ));
                       },
