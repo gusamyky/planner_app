@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   ? state.foundEvents
                   : state.homePageEvents;
               return CustomScaffold(
-                appBarTitle: AppLocalizations.of(context)!.today,
+                appBarTitle: AppLocalizations.of(context)!.home,
                 body: Column(
                   children: [
                     if (context.read<MainCubit>().state.isSearchActive) ...[
