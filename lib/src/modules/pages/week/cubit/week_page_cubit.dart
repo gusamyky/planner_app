@@ -5,31 +5,35 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
-part 'day_page_state.dart';
-part 'day_page_cubit.freezed.dart';
+part 'week_page_state.dart';
+part 'week_page_cubit.freezed.dart';
 
-class DayPageCubit extends Cubit<DayPageState> {
-  DayPageCubit() : super(const DayPageState.initial());
+class WeekPageCubit extends Cubit<WeekPageState> {
+  WeekPageCubit() : super(const WeekPageState.initial());
 
   final isarService = IsarService();
 
-  Future<void> getDayEvents() async {
+  Future<void> getWeekEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
-    final today = DateTime.now().subtract(const Duration(days: 1));
-    final endDate = DateTime.now();
+    final today = DateTime.now();
+    final startOfWeek = today.subtract(Duration(days: today.weekday - 1));
+    final endOfWeek = startOfWeek.add(const Duration(days: 6));
+
     List<Event> filteredEvents = [];
     final allEvents = await isarService.fetchEvents();
 
     filteredEvents = allEvents
         .where((element) =>
-            element.date!.isAfter(today) && element.date!.isBefore(endDate))
+            element.date!.isAfter(startOfWeek) &&
+            element.date!.isBefore(endOfWeek))
         .toList();
 
     filteredEvents.sort(
-      (a, b) => a.date!.compareTo(b.date!),
+      (a, b) => a.timeFrom!.millisecondsSinceEpoch
+          .compareTo(b.timeFrom!.millisecondsSinceEpoch),
     );
 
-    emit(state.copyWith(dayEvents: filteredEvents, dbStatus: DbStatus.loaded));
+    emit(state.copyWith(weekEvents: filteredEvents, dbStatus: DbStatus.loaded));
   }
 
   void search(String text) {
@@ -37,7 +41,7 @@ class DayPageCubit extends Cubit<DayPageState> {
     log(text);
     final foundEvents = <Event>[];
     if (text.trim().isNotEmpty) {
-      for (final event in state.dayEvents) {
+      for (final event in state.weekEvents) {
         if (event.description!.toLowerCase().contains(text) ||
             event.title!.toLowerCase().contains(text)) {
           foundEvents.add(event);
@@ -55,6 +59,6 @@ class DayPageCubit extends Cubit<DayPageState> {
 
   Future<void> deleteEvent(Event event) async {
     await isarService.deleteEvent(event);
-    getDayEvents();
+    getWeekEvents();
   }
 }

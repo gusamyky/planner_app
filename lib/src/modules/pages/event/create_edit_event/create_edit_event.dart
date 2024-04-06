@@ -10,7 +10,7 @@ import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
-import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/cubit/create_edit_event_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart';
@@ -24,14 +24,14 @@ class CreateEditEventPage extends StatelessWidget {
     this.allEventsCubit,
     this.event,
     this.homePageCubit,
-    this.dayPageCubit,
+    this.weekPageCubit,
     this.monthPageCubit,
     super.key,
   });
   final Event? event;
   final AllEventsCubit? allEventsCubit;
   final HomePageCubit? homePageCubit;
-  final DayPageCubit? dayPageCubit;
+  final WeekPageCubit? weekPageCubit;
   final MonthPageCubit? monthPageCubit;
 
   @override
@@ -49,8 +49,8 @@ class CreateEditEventPage extends StatelessWidget {
               homePageCubit!.getHomeEvents().then(
                     (value) => context.router.pop(),
                   );
-            } else if (dayPageCubit != null) {
-              dayPageCubit!.getDayEvents().then(
+            } else if (weekPageCubit != null) {
+              weekPageCubit!.getWeekEvents().then(
                     (value) => context.router.pop(),
                   );
             } else if (monthPageCubit != null) {
@@ -61,7 +61,7 @@ class CreateEditEventPage extends StatelessWidget {
           } else if (state.dbStatus == DbStatus.added) {
             allEventsCubit!.getAllEvents();
             homePageCubit!.getHomeEvents();
-            dayPageCubit!.getDayEvents();
+            weekPageCubit!.getWeekEvents();
             monthPageCubit!.getMonthEvents();
             context.router.pop();
           }

@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: const [HomeRoute(), DayRoute(), MonthRoute(), AllEventsRoute()],
+      routes: const [HomeRoute(), WeekRoute(), MonthRoute(), AllEventsRoute()],
       bottomNavigationBuilder: (context, tabsRouter) {
         final tabsRouter = AutoTabsRouter.of(context);
         return BottomNavigationBar(
@@ -56,7 +56,7 @@ List<BNBItem> _tabs(BuildContext context) => <BNBItem>[
           icon: AppIcons.calendarDay,
           color: Palette.selected,
         ),
-        label: AppLocalizations.of(context)!.today,
+        label: AppLocalizations.of(context)!.week,
       ),
       BNBItem(
         initialLocation: AppRoutes.month,

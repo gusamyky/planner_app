@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'day_page_cubit.dart';
+part of 'week_page_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,28 +15,28 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$DayPageState {
-  List<Event> get dayEvents => throw _privateConstructorUsedError;
+mixin _$WeekPageState {
+  List<Event> get weekEvents => throw _privateConstructorUsedError;
   List<Event> get foundEvents => throw _privateConstructorUsedError;
   DbStatus get dbStatus => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus)
+            List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus)?
         initial,
     required TResult orElse(),
   }) =>
@@ -59,24 +59,24 @@ mixin _$DayPageState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $DayPageStateCopyWith<DayPageState> get copyWith =>
+  $WeekPageStateCopyWith<WeekPageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DayPageStateCopyWith<$Res> {
-  factory $DayPageStateCopyWith(
-          DayPageState value, $Res Function(DayPageState) then) =
-      _$DayPageStateCopyWithImpl<$Res, DayPageState>;
+abstract class $WeekPageStateCopyWith<$Res> {
+  factory $WeekPageStateCopyWith(
+          WeekPageState value, $Res Function(WeekPageState) then) =
+      _$WeekPageStateCopyWithImpl<$Res, WeekPageState>;
   @useResult
   $Res call(
-      {List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus});
+      {List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus});
 }
 
 /// @nodoc
-class _$DayPageStateCopyWithImpl<$Res, $Val extends DayPageState>
-    implements $DayPageStateCopyWith<$Res> {
-  _$DayPageStateCopyWithImpl(this._value, this._then);
+class _$WeekPageStateCopyWithImpl<$Res, $Val extends WeekPageState>
+    implements $WeekPageStateCopyWith<$Res> {
+  _$WeekPageStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -86,14 +86,14 @@ class _$DayPageStateCopyWithImpl<$Res, $Val extends DayPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dayEvents = null,
+    Object? weekEvents = null,
     Object? foundEvents = null,
     Object? dbStatus = null,
   }) {
     return _then(_value.copyWith(
-      dayEvents: null == dayEvents
-          ? _value.dayEvents
-          : dayEvents // ignore: cast_nullable_to_non_nullable
+      weekEvents: null == weekEvents
+          ? _value.weekEvents
+          : weekEvents // ignore: cast_nullable_to_non_nullable
               as List<Event>,
       foundEvents: null == foundEvents
           ? _value.foundEvents
@@ -109,19 +109,19 @@ class _$DayPageStateCopyWithImpl<$Res, $Val extends DayPageState>
 
 /// @nodoc
 abstract class _$$InitialImplCopyWith<$Res>
-    implements $DayPageStateCopyWith<$Res> {
+    implements $WeekPageStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus});
+      {List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus});
 }
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$DayPageStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$WeekPageStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -130,14 +130,14 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dayEvents = null,
+    Object? weekEvents = null,
     Object? foundEvents = null,
     Object? dbStatus = null,
   }) {
     return _then(_$InitialImpl(
-      dayEvents: null == dayEvents
-          ? _value._dayEvents
-          : dayEvents // ignore: cast_nullable_to_non_nullable
+      weekEvents: null == weekEvents
+          ? _value._weekEvents
+          : weekEvents // ignore: cast_nullable_to_non_nullable
               as List<Event>,
       foundEvents: null == foundEvents
           ? _value._foundEvents
@@ -155,19 +155,19 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<Event> dayEvents = const [],
+      {final List<Event> weekEvents = const [],
       final List<Event> foundEvents = const [],
       this.dbStatus = DbStatus.init})
-      : _dayEvents = dayEvents,
+      : _weekEvents = weekEvents,
         _foundEvents = foundEvents;
 
-  final List<Event> _dayEvents;
+  final List<Event> _weekEvents;
   @override
   @JsonKey()
-  List<Event> get dayEvents {
-    if (_dayEvents is EqualUnmodifiableListView) return _dayEvents;
+  List<Event> get weekEvents {
+    if (_weekEvents is EqualUnmodifiableListView) return _weekEvents;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_dayEvents);
+    return EqualUnmodifiableListView(_weekEvents);
   }
 
   final List<Event> _foundEvents;
@@ -185,7 +185,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'DayPageState.initial(dayEvents: $dayEvents, foundEvents: $foundEvents, dbStatus: $dbStatus)';
+    return 'WeekPageState.initial(weekEvents: $weekEvents, foundEvents: $foundEvents, dbStatus: $dbStatus)';
   }
 
   @override
@@ -194,7 +194,7 @@ class _$InitialImpl implements _Initial {
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
             const DeepCollectionEquality()
-                .equals(other._dayEvents, _dayEvents) &&
+                .equals(other._weekEvents, _weekEvents) &&
             const DeepCollectionEquality()
                 .equals(other._foundEvents, _foundEvents) &&
             (identical(other.dbStatus, dbStatus) ||
@@ -204,7 +204,7 @@ class _$InitialImpl implements _Initial {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_dayEvents),
+      const DeepCollectionEquality().hash(_weekEvents),
       const DeepCollectionEquality().hash(_foundEvents),
       dbStatus);
 
@@ -218,32 +218,32 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus)
+            List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus)
         initial,
   }) {
-    return initial(dayEvents, foundEvents, dbStatus);
+    return initial(weekEvents, foundEvents, dbStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus)?
         initial,
   }) {
-    return initial?.call(dayEvents, foundEvents, dbStatus);
+    return initial?.call(weekEvents, foundEvents, dbStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<Event> dayEvents, List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> weekEvents, List<Event> foundEvents, DbStatus dbStatus)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(dayEvents, foundEvents, dbStatus);
+      return initial(weekEvents, foundEvents, dbStatus);
     }
     return orElse();
   }
@@ -277,14 +277,14 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements DayPageState {
+abstract class _Initial implements WeekPageState {
   const factory _Initial(
-      {final List<Event> dayEvents,
+      {final List<Event> weekEvents,
       final List<Event> foundEvents,
       final DbStatus dbStatus}) = _$InitialImpl;
 
   @override
-  List<Event> get dayEvents;
+  List<Event> get weekEvents;
   @override
   List<Event> get foundEvents;
   @override

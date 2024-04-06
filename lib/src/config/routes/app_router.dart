@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:planner_app/src/modules/pages/all_events/all_events_page.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
-import 'package:planner_app/src/modules/pages/day/cubit/day_page_cubit.dart';
-import 'package:planner_app/src/modules/pages/day/day_page.dart';
+import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
+import 'package:planner_app/src/modules/pages/week/week_page.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/create_edit_event.dart';
 import 'package:planner_app/src/modules/pages/event/event_info/event_details_page.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
@@ -25,7 +25,7 @@ class AppRouter extends _$AppRouter {
           ),
           AutoRoute(
             maintainState: false,
-            page: DayRoute.page,
+            page: WeekRoute.page,
           ),
           AutoRoute(
             maintainState: false,

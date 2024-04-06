@@ -101,7 +101,7 @@ class _HomeEventsList extends StatelessWidget {
         } else {
           return Center(
             child: Text(
-              AppLocalizations.of(context)!.you_have_no_events_week,
+              AppLocalizations.of(context)!.you_have_no_events_today,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           );
