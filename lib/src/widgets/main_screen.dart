@@ -69,9 +69,9 @@ List<BNBItem> _tabs(BuildContext context) => <BNBItem>[
       ),
       BNBItem(
         initialLocation: AppRoutes.allEvents,
-        icon: const AppIcon(icon: AppIcons.calendar),
+        icon: const AppIcon(icon: AppIcons.list),
         activeIcon: const AppIcon(
-          icon: AppIcons.calendar,
+          icon: AppIcons.list,
           color: Palette.selected,
         ),
         label: AppLocalizations.of(context)!.all_events,

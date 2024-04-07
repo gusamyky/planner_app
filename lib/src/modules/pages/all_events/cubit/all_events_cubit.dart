@@ -17,7 +17,8 @@ class AllEventsCubit extends Cubit<AllEventsState> {
     emit(state.copyWith(dbStatus: DbStatus.loading));
     await isarService.fetchEvents().then((allEvents) {
       allEvents.sort(
-        (a, b) => a.timeFrom!.compareTo(b.timeFrom!),
+        (a, b) => a.timeFrom!.millisecondsSinceEpoch
+            .compareTo(b.timeFrom!.millisecondsSinceEpoch),
       );
       emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
     });

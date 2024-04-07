@@ -96,7 +96,9 @@ class _AllEventsList extends StatelessWidget {
                     if (index == 0 ||
                         eventList[index].date!.month !=
                             eventList[index - 1].date!.month) ...[
-                      Text(eventList[index].date!.month.toString()),
+                      // Text(DateFormat.MMMM().format(eventList[index].date!)),
+                      Text(getMonthStringLocale(
+                          eventList[index].date!.month, context)),
                       const SizedBox(height: Constants.padding15),
                     ],
                     EventTile(
@@ -122,4 +124,23 @@ class _AllEventsList extends StatelessWidget {
       },
     );
   }
+}
+
+String getMonthStringLocale(int monthNum, BuildContext context) {
+  final monthMap = <int, String>{
+    1: AppLocalizations.of(context)!.month1,
+    2: AppLocalizations.of(context)!.month2,
+    3: AppLocalizations.of(context)!.month3,
+    4: AppLocalizations.of(context)!.month4,
+    5: AppLocalizations.of(context)!.month5,
+    6: AppLocalizations.of(context)!.month6,
+    7: AppLocalizations.of(context)!.month7,
+    8: AppLocalizations.of(context)!.month8,
+    9: AppLocalizations.of(context)!.month9,
+    10: AppLocalizations.of(context)!.month10,
+    11: AppLocalizations.of(context)!.month11,
+    12: AppLocalizations.of(context)!.month12,
+  };
+
+  return monthMap[monthNum]!;
 }

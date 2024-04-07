@@ -27,7 +27,10 @@ class EventPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _StatusIndicator(status: event.status),
-                  _DateIndicator(eventTime: event.date!),
+                  _DateIndicator(
+                    eventTimeFrom: event.timeFrom!,
+                    eventTimeTo: event.timeTo!,
+                  ),
                 ],
               )
             ],
@@ -91,11 +94,17 @@ class _StatusIndicator extends StatelessWidget {
 }
 
 class _DateIndicator extends StatelessWidget {
-  const _DateIndicator({required this.eventTime});
-  final DateTime eventTime;
+  const _DateIndicator({
+    required this.eventTimeFrom,
+    required this.eventTimeTo,
+  });
+
+  final DateTime eventTimeFrom;
+  final DateTime eventTimeTo;
 
   @override
   Widget build(BuildContext context) {
-    return Text('${eventTime.yMd} - ${eventTime.hm}');
+    return Text(
+        '${eventTimeFrom.yMd}: ${eventTimeFrom.hm} - ${eventTimeTo.hm}');
   }
 }

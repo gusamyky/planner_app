@@ -188,6 +188,7 @@ class _StatusPicker extends StatefulWidget {
 class _StatusPickerState extends State<_StatusPicker> {
   @override
   Widget build(BuildContext context) {
+    widget.currentStatus ?? EventStatus.todo;
     final entries = <DropdownMenuEntry>[
       DropdownMenuEntry(
         value: EventStatus.todo,
@@ -207,8 +208,7 @@ class _StatusPickerState extends State<_StatusPicker> {
       ),
     ];
     return DropdownMenu(
-      initialSelection:
-          entries.where((element) => element.value == widget.currentStatus),
+      initialSelection: widget.currentStatus,
       dropdownMenuEntries: entries,
       textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
           color: context.read<CreateEditEventCubit>().state.eventStatus ==
