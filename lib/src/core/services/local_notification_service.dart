@@ -50,7 +50,6 @@ class LocalNotificationService {
           tz.local,
         ),
         await notificationDetails(),
-        androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
