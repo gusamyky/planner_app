@@ -18,6 +18,11 @@ class LocalNotificationService {
       onDidReceiveLocalNotification: (id, title, body, payload) {},
     );
 
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+
     var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
@@ -31,8 +36,11 @@ class LocalNotificationService {
 
   notificationDetails() {
     return const NotificationDetails(
-        android: AndroidNotificationDetails('channelId', 'channelName',
-            importance: Importance.max),
+        android: AndroidNotificationDetails('channel_id', 'Channel Name',
+            channelDescription: 'Channel Description',
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'ticker'),
         iOS: DarwinNotificationDetails());
   }
 
