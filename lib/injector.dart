@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:planner_app/src/core/services/local_notification_service.dart';
 import 'package:planner_app/src/modules/cubits/cubit/main_cubit.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
 import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
@@ -9,11 +10,16 @@ import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart'
 final GetIt sl = GetIt.instance;
 
 Future<void> setupInjection() async {
-  //_injectConfig();
+  _injectConfig();
   //_injectDataSources();
   // _injectRepositories();
   //_injectUseCases();
   _injectBlocs();
+}
+
+void _injectConfig() {
+  sl.registerLazySingletonAsync<LocalNotificationService>(
+      () async => LocalNotificationService());
 }
 
 void _injectBlocs() {
