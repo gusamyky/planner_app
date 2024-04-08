@@ -81,14 +81,15 @@ class EventTile extends StatelessWidget {
         }
         return res;
       },
-      onDismissed: (direction) => IsarService().deleteEvent(event),
+      onDismissed: (direction) {
+        IsarService().deleteEvent(event);
+        LocalNotificationService().cancelNotification(event.id!);
+      },
       child: GestureDetector(
         onTap: () {
           context.router.push(
             EventRoute(event: event),
           );
-          LocalNotificationService()
-              .showNotification(title: 'AAAAAAAA', body: 'MAMAMMAMA');
         },
         child: Column(
           children: [

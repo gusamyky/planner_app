@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class LocalNotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -34,6 +35,26 @@ class LocalNotificationService {
     );
   }
 
+  Future scheduleNotification(
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payLoad,
+      required DateTime scheduledNotificationDateTime}) async {
+    return flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(
+          scheduledNotificationDateTime,
+          tz.local,
+        ),
+        await notificationDetails(),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
   notificationDetails() {
     return const NotificationDetails(
         android: AndroidNotificationDetails('channel_id', 'Channel Name',
@@ -42,6 +63,10 @@ class LocalNotificationService {
             priority: Priority.high,
             ticker: 'ticker'),
         iOS: DarwinNotificationDetails());
+  }
+
+  Future cancelNotification(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
   }
 
   Future showNotification(
