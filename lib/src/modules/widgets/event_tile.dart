@@ -5,6 +5,7 @@ import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/helpers/date_time_extensions.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
+import 'package:planner_app/src/core/services/local_notification_service.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
@@ -82,9 +83,13 @@ class EventTile extends StatelessWidget {
       },
       onDismissed: (direction) => IsarService().deleteEvent(event),
       child: GestureDetector(
-        onTap: () => context.router.push(
-          EventRoute(event: event),
-        ),
+        onTap: () {
+          context.router.push(
+            EventRoute(event: event),
+          );
+          LocalNotificationService()
+              .showNotification(title: 'AAAAAAAA', body: 'MAMAMMAMA');
+        },
         child: Column(
           children: [
             Container(

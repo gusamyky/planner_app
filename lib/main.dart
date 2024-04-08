@@ -6,9 +6,9 @@ import 'package:planner_app/src/core/services/local_notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationService().init();
   await IsarService.initialize();
   await setupInjection();
   await sl.allReady();
-  await sl<LocalNotificationService>().init();
   runApp(App());
 }

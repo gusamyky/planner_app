@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -6,22 +7,39 @@ class LocalNotificationService {
 
   Future<void> init() async {
     // Initialize native android notification
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsAndroid =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
 
     // Initialize native Ios Notifications
-    const DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings();
+    var initializationSettingsIOS = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification: (id, title, body, payload) {},
+    );
 
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
+    var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
+      onDidReceiveNotificationResponse: (details) {},
     );
+  }
+
+  notificationDetails() {
+    return const NotificationDetails(
+        android: AndroidNotificationDetails('channelId', 'channelName',
+            importance: Importance.max),
+        iOS: DarwinNotificationDetails());
+  }
+
+  Future showNotification(
+      {int id = 0, String? title, String? body, String? payload}) async {
+    return flutterLocalNotificationsPlugin.show(
+        id, title, body, await notificationDetails());
   }
 
   void showNotificationAndroid(String title, String value) async {
@@ -32,12 +50,14 @@ class LocalNotificationService {
             priority: Priority.high,
             ticker: 'ticker');
 
-    int notification_id = 1;
+    int notificationId = 0;
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
+    debugPrint('SHOOWW');
+
     await flutterLocalNotificationsPlugin.show(
-        notification_id, title, value, notificationDetails,
+        notificationId, title, value, notificationDetails,
         payload: 'Not present');
   }
 
@@ -53,13 +73,15 @@ class LocalNotificationService {
       badgeNumber: null, // The application's icon badge number
     );
 
-    int notification_id = 1;
+    int notificationId = 0;
 
     const NotificationDetails notificationDetails =
         NotificationDetails(iOS: iOSPlatformChannelSpecifics);
 
+    debugPrint('SHOOWW');
+
     await flutterLocalNotificationsPlugin.show(
-        notification_id, title, value, notificationDetails,
+        notificationId, title, value, notificationDetails,
         payload: 'Not present');
   }
 }
