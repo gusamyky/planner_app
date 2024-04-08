@@ -9,12 +9,17 @@ import 'package:planner_app/src/modules/pages/month/cubit/month_page_cubit.dart'
 final GetIt sl = GetIt.instance;
 
 Future<void> setupInjection() async {
-  //_injectConfig();
+  // _injectConfig();
   //_injectDataSources();
   // _injectRepositories();
   //_injectUseCases();
   _injectBlocs();
 }
+
+// void _injectConfig() {
+//   sl.registerLazySingleton<LocalNotificationService>(
+//       () => LocalNotificationService());
+// }
 
 void _injectBlocs() {
   sl

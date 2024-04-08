@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
+import 'package:planner_app/src/core/services/local_notification_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +43,6 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       emit(state.copyWith(eventDescription: description));
 
   void onDateChanged(DateTime date) {
-    // final eventDate = DateTime(date.year, date.month, date.day, 0, 0, 0, 0, 0);
     final startTime = DateTime(date.year, date.month, date.day,
         state.timeFrom.hour, state.timeFrom.minute);
     final endTime = DateTime(date.year, date.month, date.day, state.timeTo.hour,
@@ -73,6 +73,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       timeTo: state.timeTo,
     );
     await IsarService().updateEvent(event.id!, editedEvent);
+    scheduleNotificationEdited(editedEvent);
     emit(state.copyWith(dbStatus: DbStatus.edited));
   }
 
@@ -86,8 +87,30 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       timeFrom: state.timeFrom,
       timeTo: state.timeTo,
     );
-    await IsarService()
-        .addEvent(newEvent)
-        .then((value) => emit(state.copyWith(dbStatus: DbStatus.added)));
+
+    await IsarService().addEvent(newEvent);
+    scheduleNotification(newEvent);
+    emit(state.copyWith(dbStatus: DbStatus.added));
+  }
+
+  void scheduleNotificationEdited(Event event) async {
+    final id = await IsarService().getEventId(event);
+    LocalNotificationService().cancelNotification(id);
+    LocalNotificationService().scheduleNotification(
+      id: id,
+      scheduledNotificationDateTime: event.timeFrom!,
+      title: event.title,
+      body: event.description,
+    );
+  }
+
+  void scheduleNotification(Event event) async {
+    final id = await IsarService().getEventId(event);
+    LocalNotificationService().scheduleNotification(
+      id: id,
+      scheduledNotificationDateTime: event.timeFrom!,
+      title: event.title,
+      body: event.description,
+    );
   }
 }

@@ -42,6 +42,13 @@ class IsarService {
     return fetchedEvents;
   }
 
+  Future<int> getEventId(Event event) async {
+    final fetchedEvents = await isar.events.where().findAll();
+    final res = fetchedEvents
+        .firstWhere((element) => element.timeFrom == event.timeFrom);
+    return res.id!;
+  }
+
   Future<void> updateEvent(int id, Event newEvent) async {
     var existingEvent = await isar.events.get(id);
     existingEvent = newEvent;
