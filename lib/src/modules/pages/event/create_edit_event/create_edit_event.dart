@@ -43,19 +43,19 @@ class CreateEditEventPage extends StatelessWidget {
           if (state.dbStatus == DbStatus.edited) {
             if (allEventsCubit != null) {
               allEventsCubit!.getAllEvents().then(
-                    (value) => context.router.pop(),
+                    (value) => context.router.maybePop(),
                   );
             } else if (homePageCubit != null) {
               homePageCubit!.getHomeEvents().then(
-                    (value) => context.router.pop(),
+                    (value) => context.router.maybePop(),
                   );
             } else if (weekPageCubit != null) {
               weekPageCubit!.getWeekEvents().then(
-                    (value) => context.router.pop(),
+                    (value) => context.router.maybePop(),
                   );
             } else if (monthPageCubit != null) {
               monthPageCubit!.getMonthEvents().then(
-                    (value) => context.router.pop(),
+                    (value) => context.router.maybePop(),
                   );
             }
           } else if (state.dbStatus == DbStatus.added) {
@@ -63,7 +63,7 @@ class CreateEditEventPage extends StatelessWidget {
             homePageCubit!.getHomeEvents();
             weekPageCubit!.getWeekEvents();
             monthPageCubit!.getMonthEvents();
-            context.router.pop();
+            context.router.maybePop();
           }
         },
         listenWhen: (previous, current) =>
