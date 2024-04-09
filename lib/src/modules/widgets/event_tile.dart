@@ -55,7 +55,7 @@ class EventTile extends StatelessWidget {
                         style: const TextStyle(color: Palette.selected),
                       ),
                       onPressed: () {
-                        context.router.pop<bool>(false);
+                        context.router.maybePop<bool>(false);
                       },
                     ),
                     TextButton(
@@ -64,7 +64,7 @@ class EventTile extends StatelessWidget {
                         style: const TextStyle(color: Colors.red),
                       ),
                       onPressed: () {
-                        context.router.pop<bool>(true);
+                        context.router.maybePop<bool>(true);
                       },
                     ),
                   ],

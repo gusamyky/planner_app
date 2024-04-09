@@ -65,7 +65,7 @@ class _TimeRangePickerDialog extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () => context.router.pop(),
+                  onPressed: () => context.router.maybePop(),
                   child: const Text('OK'),
                 ),
               ],

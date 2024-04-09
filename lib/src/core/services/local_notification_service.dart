@@ -35,7 +35,7 @@ class LocalNotificationService {
     );
   }
 
-  Future scheduleNotification(
+  Future _scheduleNotification(
       {int id = 0,
       String? title,
       String? body,
@@ -49,6 +49,23 @@ class LocalNotificationService {
           scheduledNotificationDateTime,
           tz.local,
         ),
+        await notificationDetails(),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  Future<void> scheduleNotification(
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payLoad,
+      required DateTime scheduledNotificationDateTime}) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
+        // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
         await notificationDetails(),
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
