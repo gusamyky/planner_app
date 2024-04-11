@@ -5,7 +5,6 @@ import 'package:planner_app/injector.dart';
 import 'package:planner_app/src/config/styles/app_colors.dart';
 import 'package:planner_app/src/config/styles/palette.dart';
 import 'package:planner_app/src/core/helpers/date_time_extensions.dart';
-import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -40,7 +39,7 @@ class CreateEditEventPage extends StatelessWidget {
       create: (context) => sl<CreateEditEventCubit>()..onInitial(event),
       child: BlocConsumer<CreateEditEventCubit, CreateEditEventState>(
         listener: (BuildContext context, CreateEditEventState state) async {
-          if (state.dbStatus == DbStatus.edited) {
+          if (state.stateStatus == StateStatus.edited) {
             if (allEventsCubit != null) {
               allEventsCubit!.getAllEvents().then(
                     (value) => context.router.maybePop(),
@@ -58,7 +57,7 @@ class CreateEditEventPage extends StatelessWidget {
                     (value) => context.router.maybePop(),
                   );
             }
-          } else if (state.dbStatus == DbStatus.added) {
+          } else if (state.stateStatus == StateStatus.added) {
             allEventsCubit!.getAllEvents();
             homePageCubit!.getHomeEvents();
             weekPageCubit!.getWeekEvents();
@@ -67,7 +66,7 @@ class CreateEditEventPage extends StatelessWidget {
           }
         },
         listenWhen: (previous, current) =>
-            current.dbStatus != previous.dbStatus,
+            current.stateStatus != previous.stateStatus,
         builder: (context, state) {
           return CustomScaffold(
             appBarTitle: event == null

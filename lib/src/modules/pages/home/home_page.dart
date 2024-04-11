@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner_app/injector.dart';
-import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:planner_app/src/modules/cubits/cubit/main_cubit.dart';
@@ -35,7 +34,7 @@ class HomePage extends StatelessWidget {
           return BlocConsumer<HomePageCubit, HomePageState>(
             listener: (context, state) {},
             builder: (context, state) {
-              final currentList = state.dbStatus == DbStatus.found
+              final currentList = state.stateStatus == StateStatus.found
                   ? state.foundEvents
                   : state.homePageEvents;
               return CustomScaffold(
@@ -69,13 +68,13 @@ class _HomeEventsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
-        if (state.dbStatus == DbStatus.loading ||
-            state.dbStatus == DbStatus.searching) {
+        if (state.stateStatus == StateStatus.loading ||
+            state.stateStatus == StateStatus.searching) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state.homePageEvents.isNotEmpty) {
-          if (state.dbStatus == DbStatus.notFound) {
+          if (state.stateStatus == StateStatus.notFound) {
             return Center(
                 child: Text(
               AppLocalizations.of(context)!.not_found,

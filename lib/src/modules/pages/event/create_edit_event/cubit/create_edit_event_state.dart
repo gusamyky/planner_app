@@ -9,6 +9,6 @@ class CreateEditEventState with _$CreateEditEventState {
     required DateTime timeFrom,
     required DateTime timeTo,
     @Default(EventStatus.todo) EventStatus eventStatus,
-    @Default(DbStatus.loading) DbStatus dbStatus,
+    @Default(StateStatus.loading) StateStatus stateStatus,
   }) = _Initial;
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/services/local_notification_service.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'home_page_state.dart';
@@ -15,7 +16,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   final isarService = IsarService();
 
   Future<void> getHomeEvents() async {
-    emit(state.copyWith(dbStatus: DbStatus.loading));
+    emit(state.copyWith(stateStatus: StateStatus.loading));
     final today = DateTime.now().subtract(const Duration(days: 1));
     final endDate = DateTime.now();
     List<Event> filteredEvents = [];
@@ -31,11 +32,11 @@ class HomePageCubit extends Cubit<HomePageState> {
     );
 
     emit(state.copyWith(
-        homePageEvents: filteredEvents, dbStatus: DbStatus.loaded));
+        homePageEvents: filteredEvents, stateStatus: StateStatus.loaded));
   }
 
   void search(String text) {
-    emit(state.copyWith(dbStatus: DbStatus.searching));
+    emit(state.copyWith(stateStatus: StateStatus.searching));
     log(text);
     final foundEvents = <Event>[];
     if (text.trim().isNotEmpty) {
@@ -46,13 +47,14 @@ class HomePageCubit extends Cubit<HomePageState> {
         }
         emit(state.copyWith(
             foundEvents: foundEvents,
-            dbStatus:
-                foundEvents.isNotEmpty ? DbStatus.found : DbStatus.notFound));
+            stateStatus: foundEvents.isNotEmpty
+                ? StateStatus.found
+                : StateStatus.notFound));
       }
     } else {
-      emit(state.copyWith(dbStatus: DbStatus.loaded));
+      emit(state.copyWith(stateStatus: StateStatus.loaded));
     }
-    log(state.dbStatus.toString());
+    log(state.stateStatus.toString());
   }
 
   Future<void> deleteEvent(Event event) async {

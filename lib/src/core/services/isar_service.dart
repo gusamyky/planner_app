@@ -2,22 +2,6 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
-enum DbStatus {
-  init,
-  adding,
-  added,
-  loading,
-  loaded,
-  deleting,
-  deleted,
-  editing,
-  edited,
-  searching,
-  found,
-  notFound,
-  error
-}
-
 class IsarService {
   static late Isar isar;
 

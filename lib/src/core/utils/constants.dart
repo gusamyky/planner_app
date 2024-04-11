@@ -1,13 +1,17 @@
 enum StateStatus {
-  initial,
+  init,
+  adding,
+  added,
   loading,
   loaded,
-  sending,
-  sended,
-  failure,
+  deleting,
+  deleted,
+  editing,
+  edited,
   searching,
   found,
-  notFound
+  notFound,
+  error
 }
 
 class Constants {

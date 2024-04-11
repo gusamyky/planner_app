@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/services/local_notification_service.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +28,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
 
   void onInitial(Event? event) async {
     emit(state.copyWith(
-      dbStatus: DbStatus.init,
+      stateStatus: StateStatus.init,
       eventTitle: event?.title ?? state.eventTitle,
       eventDescription: event?.description ?? state.eventDescription,
       eventDate: event?.date ?? state.eventDate,
@@ -63,7 +64,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       emit(state.copyWith(eventStatus: status));
 
   void onEditEvent(Event event) async {
-    emit(state.copyWith(dbStatus: DbStatus.editing));
+    emit(state.copyWith(stateStatus: StateStatus.editing));
     final editedEvent = Event(
       title: state.eventTitle.trim(),
       description: state.eventDescription.trim(),
@@ -74,11 +75,11 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
     );
     await IsarService().updateEvent(event.id!, editedEvent);
     scheduleNotificationEdited(editedEvent);
-    emit(state.copyWith(dbStatus: DbStatus.edited));
+    emit(state.copyWith(stateStatus: StateStatus.edited));
   }
 
   void onCreateEvent() async {
-    emit(state.copyWith(dbStatus: DbStatus.adding));
+    emit(state.copyWith(stateStatus: StateStatus.adding));
     final newEvent = Event(
       title: state.eventTitle.trim(),
       description: state.eventDescription.trim(),
@@ -90,7 +91,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
 
     await IsarService().addEvent(newEvent);
     scheduleNotification(newEvent);
-    emit(state.copyWith(dbStatus: DbStatus.added));
+    emit(state.copyWith(stateStatus: StateStatus.added));
   }
 
   void scheduleNotificationEdited(Event event) async {
