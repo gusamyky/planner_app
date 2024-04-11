@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
+import 'package:planner_app/src/core/services/local_notification_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'month_page_state.dart';
@@ -27,6 +28,7 @@ class MonthPageCubit extends Cubit<MonthPageState> {
 
   Future<void> deleteEvent(Event event) async {
     await isarService.deleteEvent(event);
+    LocalNotificationService().cancelNotification(event.id!);
     getMonthEvents();
   }
 

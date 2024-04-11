@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
+import 'package:planner_app/src/core/services/local_notification_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'all_events_state.dart';
@@ -15,17 +16,17 @@ class AllEventsCubit extends Cubit<AllEventsState> {
 
   Future<void> getAllEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
-    await isarService.fetchEvents().then((allEvents) {
-      allEvents.sort(
-        (a, b) => a.timeFrom!.millisecondsSinceEpoch
-            .compareTo(b.timeFrom!.millisecondsSinceEpoch),
-      );
-      emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
-    });
+    final allEvents = await isarService.fetchEvents();
+    allEvents.sort(
+      (a, b) => a.timeFrom!.millisecondsSinceEpoch
+          .compareTo(b.timeFrom!.millisecondsSinceEpoch),
+    );
+    emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
   }
 
   Future<void> deleteEvent(Event event) async {
     await isarService.deleteEvent(event);
+    LocalNotificationService().cancelNotification(event.id!);
     getAllEvents();
   }
 

@@ -7,11 +7,9 @@ class LocalNotificationService {
       FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
-    // Initialize native android notification
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    // Initialize native Ios Notifications
     var initializationSettingsIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -33,25 +31,6 @@ class LocalNotificationService {
       initializationSettings,
       onDidReceiveNotificationResponse: (details) {},
     );
-  }
-
-  Future _scheduleNotification(
-      {int id = 0,
-      String? title,
-      String? body,
-      String? payLoad,
-      required DateTime scheduledNotificationDateTime}) async {
-    return flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-        tz.TZDateTime.from(
-          scheduledNotificationDateTime,
-          tz.local,
-        ),
-        await notificationDetails(),
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
   }
 
   Future<void> scheduleNotification(
@@ -126,8 +105,6 @@ class LocalNotificationService {
 
     const NotificationDetails notificationDetails =
         NotificationDetails(iOS: iOSPlatformChannelSpecifics);
-
-    debugPrint('SHOOWW');
 
     await flutterLocalNotificationsPlugin.show(
         notificationId, title, value, notificationDetails,
