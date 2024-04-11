@@ -202,10 +202,6 @@ class _StatusPickerState extends State<_StatusPicker> {
         value: EventStatus.done,
         label: AppLocalizations.of(context)!.done,
       ),
-      DropdownMenuEntry(
-        value: EventStatus.story,
-        label: AppLocalizations.of(context)!.story,
-      ),
     ];
     return DropdownMenu(
       initialSelection: widget.currentStatus,
