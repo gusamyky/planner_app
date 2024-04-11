@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
+import 'package:planner_app/src/core/services/local_notification_service.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'week_page_state.dart';
@@ -15,6 +16,7 @@ class WeekPageCubit extends Cubit<WeekPageState> {
 
   Future<void> getWeekEvents() async {
     emit(state.copyWith(dbStatus: DbStatus.loading));
+
     final today = DateTime.now();
     final startOfWeek = today.subtract(Duration(days: today.weekday - 1));
     final endOfWeek = startOfWeek.add(const Duration(days: 6));
@@ -59,6 +61,7 @@ class WeekPageCubit extends Cubit<WeekPageState> {
 
   Future<void> deleteEvent(Event event) async {
     await isarService.deleteEvent(event);
+    LocalNotificationService().cancelNotification(event.id!);
     getWeekEvents();
   }
 }

@@ -90,7 +90,7 @@ class _HomeEventsList extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: EventTile(
                   event: eventList[index],
-                  onDismissed: () => context
+                  deleteFunc: () => context
                       .read<HomePageCubit>()
                       .deleteEvent(eventList[index]),
                   homePageCubit: context.read<HomePageCubit>(),

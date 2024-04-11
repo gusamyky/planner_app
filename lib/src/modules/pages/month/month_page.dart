@@ -91,7 +91,7 @@ class _MonthEventsList extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: EventTile(
                   event: eventList[index],
-                  onDismissed: () => context
+                  deleteFunc: () => context
                       .read<MonthPageCubit>()
                       .deleteEvent(eventList[index]),
                   monthPageCubit: context.read<MonthPageCubit>(),

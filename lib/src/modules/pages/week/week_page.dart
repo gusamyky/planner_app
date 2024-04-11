@@ -92,10 +92,10 @@ class _DayPageList extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: EventTile(
                   event: eventList[index],
-                  onDismissed: () => context
+                  deleteFunc: () => context
                       .read<WeekPageCubit>()
                       .deleteEvent(eventList[index]),
-                  dayPageCubit: context.read<WeekPageCubit>(),
+                  weekPageCubit: context.read<WeekPageCubit>(),
                 ),
               ),
             ),

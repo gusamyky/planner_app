@@ -96,14 +96,13 @@ class _AllEventsList extends StatelessWidget {
                     if (index == 0 ||
                         eventList[index].date!.month !=
                             eventList[index - 1].date!.month) ...[
-                      // Text(DateFormat.MMMM().format(eventList[index].date!)),
                       Text(getMonthStringLocale(
                           eventList[index].date!.month, context)),
                       const SizedBox(height: Constants.padding15),
                     ],
                     EventTile(
                       event: eventList[index],
-                      onDismissed: () => context
+                      deleteFunc: () => context
                           .read<AllEventsCubit>()
                           .deleteEvent(eventList[index]),
                       allEventsCubit: context.read<AllEventsCubit>(),
