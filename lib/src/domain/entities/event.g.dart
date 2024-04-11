@@ -146,13 +146,11 @@ const _EventstatusEnumValueMap = {
   'todo': 0,
   'inProgress': 1,
   'done': 2,
-  'story': 3,
 };
 const _EventstatusValueEnumMap = {
   0: EventStatus.todo,
   1: EventStatus.inProgress,
   2: EventStatus.done,
-  3: EventStatus.story,
 };
 
 Id _eventGetId(Event object) {

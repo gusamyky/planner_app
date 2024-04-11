@@ -65,6 +65,16 @@ class _StatusIndicator extends StatelessWidget {
 
   final EventStatus status;
 
+  Color statusColor(EventStatus status) {
+    if (status == EventStatus.todo) {
+      return Palette.toDoColor;
+    } else if (status == EventStatus.inProgress) {
+      return Palette.inProgressColor;
+    } else {
+      return Palette.doneColor;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final statusStr = status == EventStatus.todo
@@ -78,16 +88,13 @@ class _StatusIndicator extends StatelessWidget {
       padding: const EdgeInsets.all(Constants.padding7),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Constants.radius12),
-          color: status == EventStatus.todo
-              ? Palette.toDoColor
-              : status == EventStatus.done
-                  ? Palette.doneColor
-                  : status == EventStatus.inProgress
-                      ? Palette.inProgressColor
-                      : Palette.storyColor),
+          color: statusColor(status)),
       child: Text(
         statusStr,
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }
