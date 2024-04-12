@@ -10,5 +10,6 @@ class CreateEditEventState with _$CreateEditEventState {
     required DateTime timeTo,
     @Default(EventStatus.todo) EventStatus eventStatus,
     @Default(StateStatus.loading) StateStatus stateStatus,
+    @Default('') String errorMessage,
   }) = _Initial;
 }

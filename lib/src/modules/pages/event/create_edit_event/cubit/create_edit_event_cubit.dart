@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/services/local_notification_service.dart';
@@ -23,7 +25,8 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
               DateTime.now().month,
               DateTime.now().day,
               DateTime.now().hour,
-              (DateTime.now().minute - (DateTime.now().minute % 5)).toInt()),
+              (DateTime.now().minute - (DateTime.now().minute % 5)).toInt() +
+                  5),
         ));
 
   void onInitial(Event? event) async {
@@ -80,18 +83,33 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
 
   void onCreateEvent() async {
     emit(state.copyWith(stateStatus: StateStatus.adding));
-    final newEvent = Event(
-      title: state.eventTitle.trim(),
-      description: state.eventDescription.trim(),
-      status: state.eventStatus,
-      date: state.eventDate,
-      timeFrom: state.timeFrom,
-      timeTo: state.timeTo,
-    );
 
-    await IsarService().addEvent(newEvent);
-    scheduleNotification(newEvent);
-    emit(state.copyWith(stateStatus: StateStatus.added));
+    final allEvents = await IsarService().fetchEvents();
+    final crossEvents = <Event>[];
+    if (allEvents.isNotEmpty) {
+      for (var element in allEvents) {
+        if (isOverlap(
+            state.timeFrom, element.timeFrom!, state.timeTo, element.timeTo!)) {
+          crossEvents.add(element);
+        }
+      }
+    }
+
+    if (crossEvents.isEmpty) {
+      final newEvent = Event(
+        title: state.eventTitle.trim(),
+        description: state.eventDescription.trim(),
+        status: state.eventStatus,
+        date: state.eventDate,
+        timeFrom: state.timeFrom,
+        timeTo: state.timeTo,
+      );
+      await IsarService().addEvent(newEvent);
+      scheduleNotification(newEvent);
+      emit(state.copyWith(stateStatus: StateStatus.added));
+    } else {
+      emit(state.copyWith(stateStatus: StateStatus.error));
+    }
   }
 
   void scheduleNotificationEdited(Event event) async {
@@ -113,5 +131,18 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       title: event.title,
       body: event.description,
     );
+  }
+
+  bool isOverlap(
+      DateTime start1, DateTime start2, DateTime end1, DateTime end2) {
+    final overlap = max(
+        0,
+        min(end1.millisecondsSinceEpoch, end2.millisecondsSinceEpoch) -
+            max(start1.millisecondsSinceEpoch, start2.millisecondsSinceEpoch));
+    if (overlap > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

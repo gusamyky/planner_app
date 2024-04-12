@@ -3,6 +3,7 @@
   "cancel": "Powrót",
   "create": "Utwórz",
   "create_event": "Utwórz event",
+  "cross_events_error": "Już istnieje event w takim czasie.",
   "delete": "Usuń",
   "delete_confirm": "Czy na pewno chcesz usunąć event?",
   "description": "Opis",
