@@ -65,8 +65,13 @@ class CreateEditEventPage extends StatelessWidget {
             monthPageCubit!.getMonthEvents();
             context.router.maybePop();
           } else if (state.stateStatus == StateStatus.error) {
-            Fluttertoast.showToast(
-                msg: AppLocalizations.of(context)!.cross_events_error);
+            if (state.errorMessage == 'OVERLAP') {
+              Fluttertoast.showToast(
+                  msg: AppLocalizations.of(context)!.events_overlap_error);
+            } else if (state.errorMessage == 'EVENT_TIME_IS_TOO_EARLY') {
+              Fluttertoast.showToast(
+                  msg: AppLocalizations.of(context)!.event_too_early_error);
+            }
           }
         },
         listenWhen: (previous, current) =>

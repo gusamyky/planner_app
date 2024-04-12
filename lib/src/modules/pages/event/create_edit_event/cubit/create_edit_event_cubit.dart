@@ -95,7 +95,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       }
     }
 
-    if (crossEvents.isEmpty) {
+    if (crossEvents.isEmpty && state.timeFrom.isAfter(DateTime.now())) {
       final newEvent = Event(
         title: state.eventTitle.trim(),
         description: state.eventDescription.trim(),
@@ -108,7 +108,10 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       scheduleNotification(newEvent);
       emit(state.copyWith(stateStatus: StateStatus.added));
     } else {
-      emit(state.copyWith(stateStatus: StateStatus.error));
+      emit(state.copyWith(
+          stateStatus: StateStatus.error,
+          errorMessage:
+              crossEvents.isNotEmpty ? 'OVERLAP' : 'EVENT_TIME_IS_TOO_EARLY'));
     }
   }
 
