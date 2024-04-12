@@ -165,10 +165,9 @@ class _DateIndicator extends StatelessWidget {
           builder: (context, child) => Theme(
               data: ThemeData().copyWith(
                   colorScheme: const ColorScheme.dark(
-                      primary: Palette.selected,
-                      onPrimary: Palette.backgroundColor,
-                      surface: AppColors.gray2,
-                      onSurface: AppColors.lightgray),
+                    primary: Palette.toDoColor,
+                    onPrimary: AppColors.white,
+                  ),
                   dialogBackgroundColor: AppColors.black),
               child: child!),
           initialEntryMode: DatePickerEntryMode.calendarOnly,
