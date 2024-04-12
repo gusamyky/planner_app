@@ -40,6 +40,16 @@ class EventTile extends StatefulWidget {
 class _EventTileState extends State<EventTile> {
   bool isActive = false;
 
+  Color statusColor(EventStatus status) {
+    if (status == EventStatus.todo) {
+      return Palette.toDoColor;
+    } else if (status == EventStatus.inProgress) {
+      return Palette.inProgressColor;
+    } else {
+      return Palette.doneColor;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -53,6 +63,9 @@ class _EventTileState extends State<EventTile> {
               padding: const EdgeInsets.all(Constants.space11),
               decoration: BoxDecoration(
                   color: Palette.tileColor,
+                  border: BorderDirectional(
+                      start: BorderSide(
+                          color: statusColor(widget.event.status), width: 2)),
                   borderRadius: BorderRadius.circular(Constants.tileRadius)),
               child: Column(
                 children: [
@@ -70,7 +83,7 @@ class _EventTileState extends State<EventTile> {
                         ),
                       ),
                       Text(
-                        '${widget.event.date?.yMd} - ${widget.event.timeFrom?.hm}',
+                        '${widget.event.date?.eMd}',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: AppColors.white,
                             ),
@@ -153,6 +166,10 @@ class _EventTileState extends State<EventTile> {
                                 )),
                           ],
                         )
+                      ],
+                      if (!isActive) ...[
+                        const Spacer(),
+                        Text('${widget.event.timeFrom?.hm}'),
                       ]
                     ],
                   ),

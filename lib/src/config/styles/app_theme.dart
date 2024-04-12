@@ -77,7 +77,7 @@ class AppTheme {
 class _DarkTheme {
   static ColorScheme get colorScheme {
     return const ColorScheme.dark(
-      primary: Palette.selected,
+      primary: Palette.backgroundColor,
       outline: Palette.selected,
       background: Palette.backgroundColor,
       primaryContainer: Palette.tileColor,
@@ -88,7 +88,7 @@ class _DarkTheme {
   static ElevatedButtonThemeData get elevatedButtonTheme {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.olive,
+        backgroundColor: AppColors.green,
         foregroundColor: AppColors.white,
         textStyle: const TextStyle(
           fontSize: 12,
@@ -156,7 +156,7 @@ class _DarkTheme {
       borderColor: Palette.selected,
       selectedColor: AppColors.black,
       color: AppColors.black,
-      fillColor: AppColors.olive,
+      fillColor: AppColors.green,
       borderRadius: BorderRadius.circular(Constants.toggleButtonsRadius),
       textStyle: const TextStyle(
         fontSize: 12,
