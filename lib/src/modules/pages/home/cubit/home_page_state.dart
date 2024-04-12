@@ -5,6 +5,6 @@ class HomePageState with _$HomePageState {
   const factory HomePageState.initial({
     @Default([]) List<Event> homePageEvents,
     @Default([]) List<Event> foundEvents,
-    @Default(DbStatus.init) DbStatus dbStatus,
+    @Default(StateStatus.init) StateStatus stateStatus,
   }) = _Initial;
 }

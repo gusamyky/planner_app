@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'main_state.dart';
@@ -22,17 +23,18 @@ class MainCubit extends Cubit<MainState> {
   }
 
   Future<void> getAllEvents() async {
-    emit(state.copyWith(dbStatus: DbStatus.loading));
+    emit(state.copyWith(stateStatus: StateStatus.loading));
     await isar.fetchEvents().then((allEvents) {
       allEvents.sort(
         (a, b) => a.timeFrom!.compareTo(b.timeFrom!),
       );
-      emit(state.copyWith(allEvents: allEvents, dbStatus: DbStatus.loaded));
+      emit(state.copyWith(
+          allEvents: allEvents, stateStatus: StateStatus.loaded));
     });
   }
 
   Future<void> getMonthEvents() async {
-    emit(state.copyWith(dbStatus: DbStatus.loading));
+    emit(state.copyWith(stateStatus: StateStatus.loading));
     List<Event> filteredEvents = [];
     final allEvents = await isar.fetchEvents();
 
@@ -40,11 +42,12 @@ class MainCubit extends Cubit<MainState> {
         .where((event) => event.date!.month == DateTime.now().month)
         .toList();
 
-    emit(state.copyWith(allEvents: filteredEvents, dbStatus: DbStatus.loaded));
+    emit(state.copyWith(
+        allEvents: filteredEvents, stateStatus: StateStatus.loaded));
   }
 
   void search(String text) {
-    emit(state.copyWith(dbStatus: DbStatus.searching));
+    emit(state.copyWith(stateStatus: StateStatus.searching));
     log(text);
     final foundEvents = <Event>[];
     if (text.trim().isNotEmpty) {
@@ -55,12 +58,13 @@ class MainCubit extends Cubit<MainState> {
         }
         emit(state.copyWith(
             foundEvents: foundEvents,
-            dbStatus:
-                foundEvents.isNotEmpty ? DbStatus.found : DbStatus.notFound));
+            stateStatus: foundEvents.isNotEmpty
+                ? StateStatus.found
+                : StateStatus.notFound));
       }
     } else {
-      emit(state.copyWith(dbStatus: DbStatus.loaded));
+      emit(state.copyWith(stateStatus: StateStatus.loaded));
     }
-    log(state.dbStatus.toString());
+    log(state.stateStatus.toString());
   }
 }

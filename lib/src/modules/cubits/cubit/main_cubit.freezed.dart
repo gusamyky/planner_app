@@ -19,25 +19,25 @@ mixin _$MainState {
   bool get isSearchActive => throw _privateConstructorUsedError;
   List<Event> get allEvents => throw _privateConstructorUsedError;
   List<Event> get foundEvents => throw _privateConstructorUsedError;
-  DbStatus get dbStatus => throw _privateConstructorUsedError;
+  StateStatus get stateStatus => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isSearchActive, List<Event> allEvents,
-            List<Event> foundEvents, DbStatus dbStatus)
+            List<Event> foundEvents, StateStatus stateStatus)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isSearchActive, List<Event> allEvents,
-            List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> foundEvents, StateStatus stateStatus)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isSearchActive, List<Event> allEvents,
-            List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> foundEvents, StateStatus stateStatus)?
         initial,
     required TResult orElse(),
   }) =>
@@ -73,7 +73,7 @@ abstract class $MainStateCopyWith<$Res> {
       {bool isSearchActive,
       List<Event> allEvents,
       List<Event> foundEvents,
-      DbStatus dbStatus});
+      StateStatus stateStatus});
 }
 
 /// @nodoc
@@ -92,7 +92,7 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
     Object? isSearchActive = null,
     Object? allEvents = null,
     Object? foundEvents = null,
-    Object? dbStatus = null,
+    Object? stateStatus = null,
   }) {
     return _then(_value.copyWith(
       isSearchActive: null == isSearchActive
@@ -107,10 +107,10 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
           ? _value.foundEvents
           : foundEvents // ignore: cast_nullable_to_non_nullable
               as List<Event>,
-      dbStatus: null == dbStatus
-          ? _value.dbStatus
-          : dbStatus // ignore: cast_nullable_to_non_nullable
-              as DbStatus,
+      stateStatus: null == stateStatus
+          ? _value.stateStatus
+          : stateStatus // ignore: cast_nullable_to_non_nullable
+              as StateStatus,
     ) as $Val);
   }
 }
@@ -127,7 +127,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isSearchActive,
       List<Event> allEvents,
       List<Event> foundEvents,
-      DbStatus dbStatus});
+      StateStatus stateStatus});
 }
 
 /// @nodoc
@@ -144,7 +144,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isSearchActive = null,
     Object? allEvents = null,
     Object? foundEvents = null,
-    Object? dbStatus = null,
+    Object? stateStatus = null,
   }) {
     return _then(_$InitialImpl(
       isSearchActive: null == isSearchActive
@@ -159,10 +159,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._foundEvents
           : foundEvents // ignore: cast_nullable_to_non_nullable
               as List<Event>,
-      dbStatus: null == dbStatus
-          ? _value.dbStatus
-          : dbStatus // ignore: cast_nullable_to_non_nullable
-              as DbStatus,
+      stateStatus: null == stateStatus
+          ? _value.stateStatus
+          : stateStatus // ignore: cast_nullable_to_non_nullable
+              as StateStatus,
     ));
   }
 }
@@ -174,7 +174,7 @@ class _$InitialImpl implements _Initial {
       {this.isSearchActive = false,
       final List<Event> allEvents = const [],
       final List<Event> foundEvents = const [],
-      this.dbStatus = DbStatus.init})
+      this.stateStatus = StateStatus.init})
       : _allEvents = allEvents,
         _foundEvents = foundEvents;
 
@@ -201,11 +201,11 @@ class _$InitialImpl implements _Initial {
 
   @override
   @JsonKey()
-  final DbStatus dbStatus;
+  final StateStatus stateStatus;
 
   @override
   String toString() {
-    return 'MainState.initial(isSearchActive: $isSearchActive, allEvents: $allEvents, foundEvents: $foundEvents, dbStatus: $dbStatus)';
+    return 'MainState.initial(isSearchActive: $isSearchActive, allEvents: $allEvents, foundEvents: $foundEvents, stateStatus: $stateStatus)';
   }
 
   @override
@@ -219,8 +219,8 @@ class _$InitialImpl implements _Initial {
                 .equals(other._allEvents, _allEvents) &&
             const DeepCollectionEquality()
                 .equals(other._foundEvents, _foundEvents) &&
-            (identical(other.dbStatus, dbStatus) ||
-                other.dbStatus == dbStatus));
+            (identical(other.stateStatus, stateStatus) ||
+                other.stateStatus == stateStatus));
   }
 
   @override
@@ -229,7 +229,7 @@ class _$InitialImpl implements _Initial {
       isSearchActive,
       const DeepCollectionEquality().hash(_allEvents),
       const DeepCollectionEquality().hash(_foundEvents),
-      dbStatus);
+      stateStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -241,32 +241,32 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isSearchActive, List<Event> allEvents,
-            List<Event> foundEvents, DbStatus dbStatus)
+            List<Event> foundEvents, StateStatus stateStatus)
         initial,
   }) {
-    return initial(isSearchActive, allEvents, foundEvents, dbStatus);
+    return initial(isSearchActive, allEvents, foundEvents, stateStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isSearchActive, List<Event> allEvents,
-            List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> foundEvents, StateStatus stateStatus)?
         initial,
   }) {
-    return initial?.call(isSearchActive, allEvents, foundEvents, dbStatus);
+    return initial?.call(isSearchActive, allEvents, foundEvents, stateStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isSearchActive, List<Event> allEvents,
-            List<Event> foundEvents, DbStatus dbStatus)?
+            List<Event> foundEvents, StateStatus stateStatus)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(isSearchActive, allEvents, foundEvents, dbStatus);
+      return initial(isSearchActive, allEvents, foundEvents, stateStatus);
     }
     return orElse();
   }
@@ -305,7 +305,7 @@ abstract class _Initial implements MainState {
       {final bool isSearchActive,
       final List<Event> allEvents,
       final List<Event> foundEvents,
-      final DbStatus dbStatus}) = _$InitialImpl;
+      final StateStatus stateStatus}) = _$InitialImpl;
 
   @override
   bool get isSearchActive;
@@ -314,7 +314,7 @@ abstract class _Initial implements MainState {
   @override
   List<Event> get foundEvents;
   @override
-  DbStatus get dbStatus;
+  StateStatus get stateStatus;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

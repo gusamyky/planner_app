@@ -22,7 +22,8 @@ mixin _$CreateEditEventState {
   DateTime get timeFrom => throw _privateConstructorUsedError;
   DateTime get timeTo => throw _privateConstructorUsedError;
   EventStatus get eventStatus => throw _privateConstructorUsedError;
-  DbStatus get dbStatus => throw _privateConstructorUsedError;
+  StateStatus get stateStatus => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -32,7 +33,8 @@ mixin _$CreateEditEventState {
             DateTime timeFrom,
             DateTime timeTo,
             EventStatus eventStatus,
-            DbStatus dbStatus)
+            StateStatus stateStatus,
+            String errorMessage)
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +47,8 @@ mixin _$CreateEditEventState {
             DateTime timeFrom,
             DateTime timeTo,
             EventStatus eventStatus,
-            DbStatus dbStatus)?
+            StateStatus stateStatus,
+            String errorMessage)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,7 +61,8 @@ mixin _$CreateEditEventState {
             DateTime timeFrom,
             DateTime timeTo,
             EventStatus eventStatus,
-            DbStatus dbStatus)?
+            StateStatus stateStatus,
+            String errorMessage)?
         initial,
     required TResult orElse(),
   }) =>
@@ -98,7 +102,8 @@ abstract class $CreateEditEventStateCopyWith<$Res> {
       DateTime timeFrom,
       DateTime timeTo,
       EventStatus eventStatus,
-      DbStatus dbStatus});
+      StateStatus stateStatus,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -121,7 +126,8 @@ class _$CreateEditEventStateCopyWithImpl<$Res,
     Object? timeFrom = null,
     Object? timeTo = null,
     Object? eventStatus = null,
-    Object? dbStatus = null,
+    Object? stateStatus = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       eventTitle: null == eventTitle
@@ -148,10 +154,14 @@ class _$CreateEditEventStateCopyWithImpl<$Res,
           ? _value.eventStatus
           : eventStatus // ignore: cast_nullable_to_non_nullable
               as EventStatus,
-      dbStatus: null == dbStatus
-          ? _value.dbStatus
-          : dbStatus // ignore: cast_nullable_to_non_nullable
-              as DbStatus,
+      stateStatus: null == stateStatus
+          ? _value.stateStatus
+          : stateStatus // ignore: cast_nullable_to_non_nullable
+              as StateStatus,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -171,7 +181,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       DateTime timeFrom,
       DateTime timeTo,
       EventStatus eventStatus,
-      DbStatus dbStatus});
+      StateStatus stateStatus,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -191,7 +202,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? timeFrom = null,
     Object? timeTo = null,
     Object? eventStatus = null,
-    Object? dbStatus = null,
+    Object? stateStatus = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$InitialImpl(
       eventTitle: null == eventTitle
@@ -218,10 +230,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.eventStatus
           : eventStatus // ignore: cast_nullable_to_non_nullable
               as EventStatus,
-      dbStatus: null == dbStatus
-          ? _value.dbStatus
-          : dbStatus // ignore: cast_nullable_to_non_nullable
-              as DbStatus,
+      stateStatus: null == stateStatus
+          ? _value.stateStatus
+          : stateStatus // ignore: cast_nullable_to_non_nullable
+              as StateStatus,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -236,7 +252,8 @@ class _$InitialImpl implements _Initial {
       required this.timeFrom,
       required this.timeTo,
       this.eventStatus = EventStatus.todo,
-      this.dbStatus = DbStatus.loading});
+      this.stateStatus = StateStatus.loading,
+      this.errorMessage = ''});
 
   @override
   @JsonKey()
@@ -255,11 +272,14 @@ class _$InitialImpl implements _Initial {
   final EventStatus eventStatus;
   @override
   @JsonKey()
-  final DbStatus dbStatus;
+  final StateStatus stateStatus;
+  @override
+  @JsonKey()
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'CreateEditEventState.initial(eventTitle: $eventTitle, eventDescription: $eventDescription, eventDate: $eventDate, timeFrom: $timeFrom, timeTo: $timeTo, eventStatus: $eventStatus, dbStatus: $dbStatus)';
+    return 'CreateEditEventState.initial(eventTitle: $eventTitle, eventDescription: $eventDescription, eventDate: $eventDate, timeFrom: $timeFrom, timeTo: $timeTo, eventStatus: $eventStatus, stateStatus: $stateStatus, errorMessage: $errorMessage)';
   }
 
   @override
@@ -278,13 +298,15 @@ class _$InitialImpl implements _Initial {
             (identical(other.timeTo, timeTo) || other.timeTo == timeTo) &&
             (identical(other.eventStatus, eventStatus) ||
                 other.eventStatus == eventStatus) &&
-            (identical(other.dbStatus, dbStatus) ||
-                other.dbStatus == dbStatus));
+            (identical(other.stateStatus, stateStatus) ||
+                other.stateStatus == stateStatus) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, eventTitle, eventDescription,
-      eventDate, timeFrom, timeTo, eventStatus, dbStatus);
+      eventDate, timeFrom, timeTo, eventStatus, stateStatus, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -302,11 +324,12 @@ class _$InitialImpl implements _Initial {
             DateTime timeFrom,
             DateTime timeTo,
             EventStatus eventStatus,
-            DbStatus dbStatus)
+            StateStatus stateStatus,
+            String errorMessage)
         initial,
   }) {
     return initial(eventTitle, eventDescription, eventDate, timeFrom, timeTo,
-        eventStatus, dbStatus);
+        eventStatus, stateStatus, errorMessage);
   }
 
   @override
@@ -319,11 +342,12 @@ class _$InitialImpl implements _Initial {
             DateTime timeFrom,
             DateTime timeTo,
             EventStatus eventStatus,
-            DbStatus dbStatus)?
+            StateStatus stateStatus,
+            String errorMessage)?
         initial,
   }) {
     return initial?.call(eventTitle, eventDescription, eventDate, timeFrom,
-        timeTo, eventStatus, dbStatus);
+        timeTo, eventStatus, stateStatus, errorMessage);
   }
 
   @override
@@ -336,13 +360,14 @@ class _$InitialImpl implements _Initial {
             DateTime timeFrom,
             DateTime timeTo,
             EventStatus eventStatus,
-            DbStatus dbStatus)?
+            StateStatus stateStatus,
+            String errorMessage)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
       return initial(eventTitle, eventDescription, eventDate, timeFrom, timeTo,
-          eventStatus, dbStatus);
+          eventStatus, stateStatus, errorMessage);
     }
     return orElse();
   }
@@ -384,7 +409,8 @@ abstract class _Initial implements CreateEditEventState {
       required final DateTime timeFrom,
       required final DateTime timeTo,
       final EventStatus eventStatus,
-      final DbStatus dbStatus}) = _$InitialImpl;
+      final StateStatus stateStatus,
+      final String errorMessage}) = _$InitialImpl;
 
   @override
   String get eventTitle;
@@ -399,7 +425,9 @@ abstract class _Initial implements CreateEditEventState {
   @override
   EventStatus get eventStatus;
   @override
-  DbStatus get dbStatus;
+  StateStatus get stateStatus;
+  @override
+  String get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

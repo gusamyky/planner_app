@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/services/local_notification_service.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,12 +25,13 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
               DateTime.now().month,
               DateTime.now().day,
               DateTime.now().hour,
-              (DateTime.now().minute - (DateTime.now().minute % 5)).toInt()),
+              (DateTime.now().minute - (DateTime.now().minute % 5)).toInt() +
+                  5),
         ));
 
   void onInitial(Event? event) async {
     emit(state.copyWith(
-      dbStatus: DbStatus.init,
+      stateStatus: StateStatus.init,
       eventTitle: event?.title ?? state.eventTitle,
       eventDescription: event?.description ?? state.eventDescription,
       eventDate: event?.date ?? state.eventDate,
@@ -63,7 +67,7 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       emit(state.copyWith(eventStatus: status));
 
   void onEditEvent(Event event) async {
-    emit(state.copyWith(dbStatus: DbStatus.editing));
+    emit(state.copyWith(stateStatus: StateStatus.editing));
     final editedEvent = Event(
       title: state.eventTitle.trim(),
       description: state.eventDescription.trim(),
@@ -74,23 +78,44 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
     );
     await IsarService().updateEvent(event.id!, editedEvent);
     scheduleNotificationEdited(editedEvent);
-    emit(state.copyWith(dbStatus: DbStatus.edited));
+    emit(state.copyWith(stateStatus: StateStatus.edited));
   }
 
   void onCreateEvent() async {
-    emit(state.copyWith(dbStatus: DbStatus.adding));
-    final newEvent = Event(
-      title: state.eventTitle.trim(),
-      description: state.eventDescription.trim(),
-      status: state.eventStatus,
-      date: state.eventDate,
-      timeFrom: state.timeFrom,
-      timeTo: state.timeTo,
-    );
+    emit(state.copyWith(stateStatus: StateStatus.adding));
+    if (state.timeFrom.isAfter(state.timeTo)) {
+      emit(state.copyWith(timeTo: state.timeTo.add(const Duration(days: 1))));
+    }
 
-    await IsarService().addEvent(newEvent);
-    scheduleNotification(newEvent);
-    emit(state.copyWith(dbStatus: DbStatus.added));
+    final allEvents = await IsarService().fetchEvents();
+    final crossEvents = <Event>[];
+    if (allEvents.isNotEmpty) {
+      for (var element in allEvents) {
+        if (isOverlap(
+            state.timeFrom, element.timeFrom!, state.timeTo, element.timeTo!)) {
+          crossEvents.add(element);
+        }
+      }
+    }
+
+    if (crossEvents.isEmpty && state.timeFrom.isAfter(DateTime.now())) {
+      final newEvent = Event(
+        title: state.eventTitle.trim(),
+        description: state.eventDescription.trim(),
+        status: state.eventStatus,
+        date: state.eventDate,
+        timeFrom: state.timeFrom,
+        timeTo: state.timeTo,
+      );
+      await IsarService().addEvent(newEvent);
+      scheduleNotification(newEvent);
+      emit(state.copyWith(stateStatus: StateStatus.added));
+    } else {
+      emit(state.copyWith(
+          stateStatus: StateStatus.error,
+          errorMessage:
+              crossEvents.isNotEmpty ? 'OVERLAP' : 'EVENT_TIME_IS_TOO_EARLY'));
+    }
   }
 
   void scheduleNotificationEdited(Event event) async {
@@ -112,5 +137,18 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
       title: event.title,
       body: event.description,
     );
+  }
+
+  bool isOverlap(
+      DateTime start1, DateTime start2, DateTime end1, DateTime end2) {
+    final overlap = max(
+        0,
+        min(end1.millisecondsSinceEpoch, end2.millisecondsSinceEpoch) -
+            max(start1.millisecondsSinceEpoch, start2.millisecondsSinceEpoch));
+    if (overlap > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

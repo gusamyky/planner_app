@@ -9,6 +9,8 @@
   "done": "Zrobione",
   "edit": "Edytuj",
   "edit_event": "Edytuj event",
+  "event_too_early_error": "Nie można utworzyć eventu z przeszłą datą.",
+  "events_overlap_error": "Już istnieje event w takim czasie.",
   "home": "Główna",
   "in_progress": "Procesowane",
   "month": "Miesiąc",

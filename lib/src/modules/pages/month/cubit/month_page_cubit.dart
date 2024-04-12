@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/services/local_notification_service.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'month_page_state.dart';
@@ -15,7 +16,7 @@ class MonthPageCubit extends Cubit<MonthPageState> {
   final isarService = IsarService();
 
   Future<void> getMonthEvents() async {
-    emit(state.copyWith(dbStatus: DbStatus.loading));
+    emit(state.copyWith(stateStatus: StateStatus.loading));
     List<Event> filteredEvents = [];
     final allEvents = await isarService.fetchEvents();
 
@@ -23,7 +24,8 @@ class MonthPageCubit extends Cubit<MonthPageState> {
         .where((event) => event.date!.month == DateTime.now().month)
         .toList();
 
-    emit(state.copyWith(allEvents: filteredEvents, dbStatus: DbStatus.loaded));
+    emit(state.copyWith(
+        allEvents: filteredEvents, stateStatus: StateStatus.loaded));
   }
 
   Future<void> deleteEvent(Event event) async {
@@ -33,7 +35,7 @@ class MonthPageCubit extends Cubit<MonthPageState> {
   }
 
   void search(String text) {
-    emit(state.copyWith(dbStatus: DbStatus.searching));
+    emit(state.copyWith(stateStatus: StateStatus.searching));
     log(text);
     final foundEvents = <Event>[];
     if (text.trim().isNotEmpty) {
@@ -44,12 +46,13 @@ class MonthPageCubit extends Cubit<MonthPageState> {
         }
         emit(state.copyWith(
             foundEvents: foundEvents,
-            dbStatus:
-                foundEvents.isNotEmpty ? DbStatus.found : DbStatus.notFound));
+            stateStatus: foundEvents.isNotEmpty
+                ? StateStatus.found
+                : StateStatus.notFound));
       }
     } else {
-      emit(state.copyWith(dbStatus: DbStatus.loaded));
+      emit(state.copyWith(stateStatus: StateStatus.loaded));
     }
-    log(state.dbStatus.toString());
+    log(state.stateStatus.toString());
   }
 }

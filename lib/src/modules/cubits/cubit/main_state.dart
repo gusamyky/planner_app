@@ -6,5 +6,5 @@ class MainState with _$MainState {
       {@Default(false) bool isSearchActive,
       @Default([]) List<Event> allEvents,
       @Default([]) List<Event> foundEvents,
-      @Default(DbStatus.init) DbStatus dbStatus}) = _Initial;
+      @Default(StateStatus.init) StateStatus stateStatus}) = _Initial;
 }

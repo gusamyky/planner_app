@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planner_app/src/core/services/isar_service.dart';
 import 'package:planner_app/src/core/services/local_notification_service.dart';
+import 'package:planner_app/src/core/utils/constants.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
 
 part 'week_page_state.dart';
@@ -15,7 +16,7 @@ class WeekPageCubit extends Cubit<WeekPageState> {
   final isarService = IsarService();
 
   Future<void> getWeekEvents() async {
-    emit(state.copyWith(dbStatus: DbStatus.loading));
+    emit(state.copyWith(stateStatus: StateStatus.loading));
 
     final today = DateTime.now();
     final startOfWeek = today.subtract(Duration(days: today.weekday - 1));
@@ -35,11 +36,12 @@ class WeekPageCubit extends Cubit<WeekPageState> {
           .compareTo(b.timeFrom!.millisecondsSinceEpoch),
     );
 
-    emit(state.copyWith(weekEvents: filteredEvents, dbStatus: DbStatus.loaded));
+    emit(state.copyWith(
+        weekEvents: filteredEvents, stateStatus: StateStatus.loaded));
   }
 
   void search(String text) {
-    emit(state.copyWith(dbStatus: DbStatus.searching));
+    emit(state.copyWith(stateStatus: StateStatus.searching));
     log(text);
     final foundEvents = <Event>[];
     if (text.trim().isNotEmpty) {
@@ -50,13 +52,14 @@ class WeekPageCubit extends Cubit<WeekPageState> {
         }
         emit(state.copyWith(
             foundEvents: foundEvents,
-            dbStatus:
-                foundEvents.isNotEmpty ? DbStatus.found : DbStatus.notFound));
+            stateStatus: foundEvents.isNotEmpty
+                ? StateStatus.found
+                : StateStatus.notFound));
       }
     } else {
-      emit(state.copyWith(dbStatus: DbStatus.loaded));
+      emit(state.copyWith(stateStatus: StateStatus.loaded));
     }
-    log(state.dbStatus.toString());
+    log(state.stateStatus.toString());
   }
 
   Future<void> deleteEvent(Event event) async {

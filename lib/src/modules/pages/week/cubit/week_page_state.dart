@@ -5,6 +5,6 @@ class WeekPageState with _$WeekPageState {
   const factory WeekPageState.initial({
     @Default([]) List<Event> weekEvents,
     @Default([]) List<Event> foundEvents,
-    @Default(DbStatus.init) DbStatus dbStatus,
+    @Default(StateStatus.init) StateStatus stateStatus,
   }) = _Initial;
 }
