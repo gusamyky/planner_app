@@ -83,6 +83,9 @@ class CreateEditEventCubit extends Cubit<CreateEditEventState> {
 
   void onCreateEvent() async {
     emit(state.copyWith(stateStatus: StateStatus.adding));
+    if (state.timeFrom.isAfter(state.timeTo)) {
+      emit(state.copyWith(timeTo: state.timeTo.add(const Duration(days: 1))));
+    }
 
     final allEvents = await IsarService().fetchEvents();
     final crossEvents = <Event>[];
