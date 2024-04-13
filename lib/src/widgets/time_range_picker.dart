@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planner_app/src/config/styles/palette.dart';
 
 class TimeRangePickerWidget {
   static Future<void> show({
@@ -66,7 +67,10 @@ class _TimeRangePickerDialog extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () => context.router.maybePop(),
-                  child: const Text('OK'),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Palette.selected),
+                  ),
                 ),
               ],
             ),
