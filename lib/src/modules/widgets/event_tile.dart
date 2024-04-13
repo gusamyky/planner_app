@@ -92,17 +92,18 @@ class _EventTileState extends State<EventTile> {
                   ),
                   const SizedBox(height: Constants.space8),
                   Row(
-                    mainAxisAlignment: !isActive
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        widget.event.description!,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: AppColors.white,
-                            ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
+                      Flexible(
+                        child: Text(
+                          widget.event.description!,
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: AppColors.white,
+                                  ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                        ),
                       ),
                       if (isActive) ...[
                         Row(
@@ -168,7 +169,6 @@ class _EventTileState extends State<EventTile> {
                         )
                       ],
                       if (!isActive) ...[
-                        const Spacer(),
                         Text('${widget.event.timeFrom?.hm}'),
                       ]
                     ],
