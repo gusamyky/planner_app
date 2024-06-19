@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:planner_app/src/modules/cubits/cubit/main_cubit.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
+import 'package:planner_app/src/modules/pages/sign_up/cubit/sign_up_cubit.dart';
 import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/cubit/create_edit_event_cubit.dart';
 import 'package:planner_app/src/modules/pages/home/cubit/home_page_cubit.dart';
@@ -24,6 +25,7 @@ Future<void> setupInjection() async {
 void _injectBlocs() {
   sl
     ..registerFactory<CreateEditEventCubit>(() => CreateEditEventCubit())
+    ..registerFactory<SignUpCubit>(() => SignUpCubit())
     ..registerFactory<AllEventsCubit>(() => AllEventsCubit())
     ..registerFactory<HomePageCubit>(() => HomePageCubit())
     ..registerFactory<WeekPageCubit>(() => WeekPageCubit())

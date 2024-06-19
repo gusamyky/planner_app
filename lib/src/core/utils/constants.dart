@@ -11,7 +11,8 @@ enum StateStatus {
   searching,
   found,
   notFound,
-  error
+  error,
+  sending,
 }
 
 class Constants {
@@ -26,6 +27,8 @@ class Constants {
   static const double space43 = 43;
   static const double space75 = 75;
 
+  static const double padding5 = 5;
+  static const double padding8 = 8;
   static const double padding7 = 7;
   static const double padding10 = 10;
   static const double padding15 = 15;

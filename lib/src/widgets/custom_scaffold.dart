@@ -27,6 +27,22 @@ class CustomScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: !context.router.canPop()
+            ? Padding(
+                padding: const EdgeInsets.all(Constants.padding8),
+                child: InkWell(
+                    onTap: () {
+                      context.router.push(const AccountRoute());
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: AppColors.gray,
+                      child: Icon(
+                        Icons.person,
+                        color: AppColors.white,
+                      ),
+                    )),
+              )
+            : null,
         centerTitle: true,
         backgroundColor: Palette.navBarColor,
         actions: context.router.canPop()

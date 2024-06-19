@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:planner_app/src/domain/entities/event.dart';
+import 'package:planner_app/src/modules/pages/account/account_page.dart';
 import 'package:planner_app/src/modules/pages/all_events/all_events_page.dart';
 import 'package:planner_app/src/modules/pages/all_events/cubit/all_events_cubit.dart';
+import 'package:planner_app/src/modules/pages/login/login_page.dart';
+import 'package:planner_app/src/modules/pages/sign_up/sign_up_page.dart';
 import 'package:planner_app/src/modules/pages/week/cubit/week_page_cubit.dart';
 import 'package:planner_app/src/modules/pages/week/week_page.dart';
 import 'package:planner_app/src/modules/pages/event/create_edit_event/create_edit_event.dart';
@@ -39,6 +42,9 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: EventRoute.page,
         ),
+        AutoRoute(page: AccountRoute.page),
+        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: SignUpRoute.page),
         AutoRoute(
           page: CreateEditEventRoute.page,
         )

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1021070172047",
+    "project_id": "splanner-7153d",
+    "storage_bucket": "splanner-7153d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021070172047:android:a84079043a55e2d809b5fa",
+        "android_client_info": {
+          "package_name": "com.gusak37.plannerApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrSen0ST-fkZbi1vh4lgXBwgWRmpoVfMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
